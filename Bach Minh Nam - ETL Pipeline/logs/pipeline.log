@@ -1,0 +1,280 @@
+2026-05-28 21:54:39,916 - extractors.base_extractor - ERROR - Failed to connected to GCS: GCS credentials file not found at: \config\minpyws-2795cbd90c41.json
+2026-05-28 21:54:39,917 - extractors.base_extractor - ERROR - Failed to connected to GCS: GCS credentials file not found at: \config\minpyws-2795cbd90c41.json
+2026-05-28 21:54:39,917 - extractors.base_extractor - ERROR - Failed to connected to GCS: GCS credentials file not found at: \config\minpyws-2795cbd90c41.json
+2026-05-28 21:54:39,919 - extractors.base_extractor - ERROR - Failed to connected to GCS: GCS credentials file not found at: \config\minpyws-2795cbd90c41.json
+2026-05-28 21:54:39,920 - extractors.base_extractor - ERROR - Failed to connected to GCS: GCS credentials file not found at: \config\minpyws-2795cbd90c41.json
+2026-05-28 21:55:34,671 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 21:55:36,102 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 21:56:03,973 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 21:56:24,583 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 21:58:13,063 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:10:32,021 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:10:33,132 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:11:00,180 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:11:19,172 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:13:39,717 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,518 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,521 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,524 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,526 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,530 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,532 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,536 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:14:45,539 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,808 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,812 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,815 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,819 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,822 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,825 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,828 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:17:24,832 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:24:42,212 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:24:43,559 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:25:19,992 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:25:47,451 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-28 22:28:18,593 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 12:05:54,074 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 12:06:18,995 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 13:32:12,780 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 13:34:58,135 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 13:35:22,957 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 13:41:34,061 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 13:42:00,089 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 13:42:00,095 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 13:45:48,014 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 13:46:17,943 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 13:46:20,066 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 16:45:57,624 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:45:57,629 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:46:44,538 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:46:46,162 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:52:25,024 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:52:25,028 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:53:09,424 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:53:10,727 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:56:21,415 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:56:21,418 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:56:21,424 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 16:57:09,007 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:10,373 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:10,464 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:13,725 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:15,053 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:15,129 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 16:57:34,752 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 16:57:35,503 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 16:57:46,050 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-30 16:57:46,385 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:03:09,622 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:03:09,628 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:03:09,633 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:03:54,892 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:03:56,217 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:03:56,305 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:03:59,528 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:04:00,805 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:04:00,883 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:04:20,592 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 17:04:21,365 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:04:31,910 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-30 17:04:32,282 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:16:02,636 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:16:02,640 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:16:02,644 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:16:47,261 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:16:48,500 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:16:48,591 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:16:51,862 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:16:53,076 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:16:53,150 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:17:13,430 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 17:17:14,157 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:17:24,938 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-30 17:17:25,283 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:20:05,195 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:20:05,198 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:20:05,200 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:20:52,669 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:20:53,955 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:20:54,036 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:20:57,332 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:20:58,617 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:20:58,703 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 17:21:19,251 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 17:21:20,024 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:21:30,986 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-30 17:21:31,362 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-30 17:21:32,331 - transformers.base_transformer - INFO - Successfully integrated Fact Order Items. Final shape: (2099029, 8)
+2026-05-30 17:24:57,953 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:25:00,179 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:25:38,692 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:26:36,452 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:27:01,627 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:27:25,166 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 17:28:06,705 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:28:09,066 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:34:35,875 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:34:37,813 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:39:03,822 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:39:06,114 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:39:30,250 - transformers.base_transformer - INFO - Successfully created order key 'order_key'
+2026-05-30 17:41:17,848 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:41:20,048 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:41:44,189 - transformers.base_transformer - INFO - Successfully created order key 'order_key'
+2026-05-30 17:42:06,366 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 17:43:19,072 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:43:43,765 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:44:07,949 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 17:55:21,844 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 17:55:21,876 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 17:55:46,017 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 17:55:46,763 - loaders.bigquery_loader - INFO - There are 0 dataset available, let's creat a dataset first
+2026-05-30 17:55:47,541 - loaders.bigquery_loader - INFO - Successfully created new dataset with ID: end_to_end_project
+2026-05-30 17:55:47,543 - loaders.bigquery_loader - WARNING - Data source for 'dim_empty' is empty. Can not upload to Big Query
+2026-05-30 17:55:53,836 - loaders.bigquery_loader - INFO - Upload succesfully. 500000 rows are loaded to dim_customer
+2026-05-30 17:55:53,836 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-30 18:19:28,751 - main - INFO - ==================================================
+2026-05-30 18:19:28,752 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 18:19:28.752351
+2026-05-30 18:19:28,752 - main - INFO - ==================================================
+2026-05-30 18:19:28,752 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 18:19:28,755 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:19:28,755 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 18:19:29,534 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-30 18:19:29,534 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-30 18:19:29,535 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 18:19:29,535 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 18:19:29,542 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:19:30,041 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:19:30,041 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:19:30,041 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 18:19:30,042 - main - CRITICAL - ==================================================
+2026-05-30 18:19:30,042 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 18:19:30,042 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:19:30,042 - main - CRITICAL - ==================================================
+2026-05-30 18:21:16,040 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:21:17,115 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:21:41,821 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:22:01,416 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:23:08,751 - main - INFO - ==================================================
+2026-05-30 18:23:08,751 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 18:23:08.751457
+2026-05-30 18:23:08,751 - main - INFO - ==================================================
+2026-05-30 18:23:08,751 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 18:23:08,756 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:23:08,756 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 18:23:09,512 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-30 18:23:09,512 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-30 18:23:09,512 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 18:23:09,512 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 18:23:09,522 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:23:10,006 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:23:10,006 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:23:10,007 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 18:23:10,007 - main - CRITICAL - ==================================================
+2026-05-30 18:23:10,007 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 18:23:10,008 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:23:10,008 - main - CRITICAL - ==================================================
+2026-05-30 18:23:59,086 - main - INFO - ==================================================
+2026-05-30 18:23:59,086 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 18:23:59.086819
+2026-05-30 18:23:59,086 - main - INFO - ==================================================
+2026-05-30 18:23:59,086 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 18:23:59,091 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:23:59,091 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 18:23:59,806 - loaders.bigquery_loader - INFO - There are 0 dataset available, let's creat a dataset first
+2026-05-30 18:24:00,480 - loaders.bigquery_loader - INFO - Successfully created new dataset with ID: end_to_end_project
+2026-05-30 18:24:00,482 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 18:24:00,482 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 18:24:00,489 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:24:00,966 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:24:00,967 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:24:00,967 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 18:24:00,967 - main - CRITICAL - ==================================================
+2026-05-30 18:24:00,967 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 18:24:00,967 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:24:00,967 - main - CRITICAL - ==================================================
+2026-05-30 18:27:27,735 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:27:27,739 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:39:12,964 - main - INFO - ==================================================
+2026-05-30 18:39:12,964 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 18:39:12.964359
+2026-05-30 18:39:12,964 - main - INFO - ==================================================
+2026-05-30 18:39:12,965 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 18:39:12,970 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:39:12,970 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 18:39:13,975 - loaders.bigquery_loader - INFO - Dataset 'end_to_end_project' already exists.
+2026-05-30 18:39:13,975 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 18:39:13,977 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 18:39:13,982 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:39:14,477 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:39:14,477 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:39:14,478 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 18:39:14,478 - main - CRITICAL - ==================================================
+2026-05-30 18:39:14,478 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 18:39:14,479 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:39:14,479 - main - CRITICAL - ==================================================
+2026-05-30 18:41:07,197 - main - INFO - ==================================================
+2026-05-30 18:41:07,198 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 18:41:07.198760
+2026-05-30 18:41:07,198 - main - INFO - ==================================================
+2026-05-30 18:41:07,198 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 18:41:07,202 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 18:41:07,202 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 18:41:07,963 - loaders.bigquery_loader - INFO - Dataset 'end_to_end_project' already exists.
+2026-05-30 18:41:07,963 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 18:41:07,963 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 18:41:07,967 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 18:41:08,418 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:41:08,418 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:41:08,418 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 18:41:08,419 - main - CRITICAL - ==================================================
+2026-05-30 18:41:08,420 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 18:41:08,420 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 18:41:08,420 - main - CRITICAL - ==================================================
+2026-05-30 23:30:29,546 - main - INFO - ==================================================
+2026-05-30 23:30:29,547 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 23:30:29.547556
+2026-05-30 23:30:29,547 - main - INFO - ==================================================
+2026-05-30 23:30:29,547 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 23:30:29,551 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 23:30:29,551 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 23:30:30,380 - loaders.bigquery_loader - INFO - Dataset 'end_to_end_project' already exists.
+2026-05-30 23:30:30,380 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 23:30:30,380 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 23:30:30,388 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:30:30,893 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:30:30,893 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:30:30,893 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 23:30:30,895 - main - CRITICAL - ==================================================
+2026-05-30 23:30:30,895 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 23:30:30,895 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:30:30,895 - main - CRITICAL - ==================================================
+2026-05-30 23:49:25,606 - main - INFO - ==================================================
+2026-05-30 23:49:25,606 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-30 23:49:25.606972
+2026-05-30 23:49:25,606 - main - INFO - ==================================================
+2026-05-30 23:49:25,606 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-30 23:49:25,610 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-30 23:49:25,610 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-30 23:49:26,490 - loaders.bigquery_loader - INFO - Dataset 'end_to_end_project' already exists.
+2026-05-30 23:49:26,490 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-30 23:49:26,490 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-30 23:49:26,498 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:49:27,079 - extractors.base_extractor - ERROR - Error listing files in folder 'shopify/': 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:49:27,079 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:49:27,079 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist). <<<
+2026-05-30 23:49:27,080 - main - CRITICAL - ==================================================
+2026-05-30 23:49:27,080 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-30 23:49:27,080 - main - CRITICAL - Error Details: 403 GET https://storage.googleapis.com/storage/v1/b/minpy/o?projection=noAcl&prefix=shopify%2F&prettyPrint=false: pythonfinal@unigappython.iam.gserviceaccount.com does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
+2026-05-30 23:49:27,080 - main - CRITICAL - ==================================================
+2026-05-30 23:50:21,658 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:50:22,992 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:50:48,978 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:51:07,409 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:52:58,549 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:53:21,049 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:53:23,491 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:54:29,072 - transformers.base_transformer - INFO - Successfully created order key 'order_key'
+2026-05-30 23:54:55,255 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-30 23:54:55,555 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:55:21,754 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:55:48,902 - transformers.base_transformer - WARNING - Column 'created_at' not found in DataFrame.
+2026-05-30 23:55:48,938 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:56:15,647 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-30 23:56:15,755 - extractors.base_extractor - INFO - Successfully connected to GCS
+2026-05-30 23:56:37,169 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'

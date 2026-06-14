@@ -1,0 +1,8 @@
+pandas
+pandas-gbq
+numpy
+google-cloud-storage
+google-cloud-bigquery
+matplotlib
+seaborn
+python-dotenv

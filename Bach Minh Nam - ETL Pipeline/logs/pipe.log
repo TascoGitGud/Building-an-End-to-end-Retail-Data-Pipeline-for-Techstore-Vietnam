@@ -1,0 +1,1219 @@
+2026-04-30 12:53:02,762 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 12:53:03,509 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 12:53:03,509 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 12:53:13,194 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-30 12:53:13,194 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-30 12:53:17,646 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-30 12:53:17,646 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-30 12:53:17,646 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-30 12:53:56,202 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-30 12:53:56,202 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-30 12:54:41,867 - pipeline_orchestrator - CRITICAL - Fail when processing fact_order_items: 'price_vnd'
+2026-04-30 12:54:41,868 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 'price_vnd' <<<
+2026-04-30 15:23:52,489 - extractors.base_extractor - ERROR - Failed to connected to GCS bucket 'minpy': 'Logger' object is not callable
+2026-04-30 15:24:15,423 - extractors.base_extractor - ERROR - Failed to connected to GCS bucket 'minpy': 'Logger' object is not callable
+2026-04-30 15:24:20,746 - extractors.base_extractor - ERROR - Failed to connected to GCS bucket 'minpy': 'Logger' object is not callable
+2026-04-30 15:27:25,418 - extractors.base_extractor - ERROR - Failed to connected to GCS bucket 'minpy': 'Logger' object is not callable
+2026-04-30 15:28:07,117 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:28:15,689 - base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:28:22,217 - base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-30 15:28:22,580 - base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 15:28:22,773 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:28:32,271 - base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:28:36,126 - base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-30 15:28:36,218 - base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 15:31:24,064 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-30 15:31:24,064 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 15:31:24,790 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-30 15:31:24,790 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-30 15:31:24,791 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 15:31:24,791 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 15:31:24,796 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:31:35,137 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-04-30 15:31:35,137 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-04-30 15:31:35,137 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-30 15:31:35,137 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-30 15:31:35,142 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:31:39,295 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-04-30 15:31:39,295 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-04-30 15:31:39,295 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-30 15:31:39,295 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-30 15:31:39,295 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-30 15:31:39,301 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:31:47,684 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:31:56,686 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:31:56,985 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:31:57,046 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-04-30 15:32:14,249 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-04-30 15:32:14,250 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-04-30 15:32:14,250 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-30 15:32:14,250 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-30 15:32:14,258 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:32:25,771 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:32:36,362 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:32:47,215 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-30 15:32:47,582 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 15:32:48,356 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 15:32:53,001 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-30 15:32:53,019 - transformers.base_transformer - ERROR - Columns ['id'] not found in DataFrame. Cannot create surrogate key.
+2026-04-30 15:32:53,019 - pipeline_orchestrator - CRITICAL - Fail when processing fact_order_items: 'price_vnd'
+2026-04-30 15:32:53,019 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 'price_vnd' <<<
+2026-04-30 15:58:33,486 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-30 15:58:33,487 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 15:58:34,092 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-30 15:58:34,092 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-30 15:58:34,092 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 15:58:34,092 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 15:58:34,095 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 15:58:36,262 - loaders.bigquery_loader - ERROR - Upload fail: Can only use .dt accessor with datetimelike values
+2026-04-30 15:58:36,262 - pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: Can only use .dt accessor with datetimelike values
+2026-04-30 15:58:36,262 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: Can only use .dt accessor with datetimelike values <<<
+2026-04-30 16:00:28,822 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-30 16:00:28,823 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 16:00:29,458 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-30 16:00:29,458 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-30 16:00:29,458 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 16:00:29,458 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 16:00:29,461 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:00:31,936 - loaders.bigquery_loader - ERROR - Upload fail: Can only use .dt accessor with datetimelike values
+2026-04-30 16:00:31,937 - pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: Can only use .dt accessor with datetimelike values
+2026-04-30 16:00:31,937 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: Can only use .dt accessor with datetimelike values <<<
+2026-04-30 16:03:03,339 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-30 16:03:03,340 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 16:03:04,074 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-30 16:03:04,074 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-30 16:03:04,074 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 16:03:04,074 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 16:03:04,080 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:03:11,766 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-04-30 16:03:11,767 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-04-30 16:03:11,767 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-30 16:03:11,767 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-30 16:03:11,771 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:03:16,741 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-04-30 16:03:16,741 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-04-30 16:03:16,742 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-30 16:03:16,742 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-30 16:03:16,742 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-30 16:03:16,746 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:03:25,227 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:03:34,149 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:03:34,579 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:03:34,643 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-04-30 16:03:49,872 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-04-30 16:03:49,873 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-04-30 16:03:49,873 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-30 16:03:49,873 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-30 16:03:49,880 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:03:58,804 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:04:08,172 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:04:16,477 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-30 16:04:16,856 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 16:04:17,469 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:04:21,072 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-30 16:04:21,177 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 16:04:21,337 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-04-30 16:04:32,978 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-04-30 16:04:32,979 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-04-30 16:04:32,979 - pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-04-30 16:04:32,980 - pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-04-30 16:04:32,988 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:04:35,009 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-30 16:04:35,607 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-30 16:04:35,616 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-04-30 16:05:00,768 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-04-30 16:05:00,768 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-04-30 16:05:00,768 - pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-04-30 16:05:00,768 - pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-04-30 16:05:00,774 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:05:01,722 - pipeline_orchestrator - CRITICAL - Fail when processing fact_bank_transactions: 'dict' object has no attribute 'columns'
+2026-04-30 16:05:01,722 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 'dict' object has no attribute 'columns' <<<
+2026-04-30 16:09:10,284 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-30 16:09:10,284 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-30 16:09:10,983 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-30 16:09:10,983 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-30 16:09:10,983 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-30 16:09:10,984 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-30 16:09:10,988 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:09:20,024 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-04-30 16:09:20,024 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-04-30 16:09:20,024 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-30 16:09:20,025 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-30 16:09:20,031 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:09:25,114 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-04-30 16:09:25,114 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-04-30 16:09:25,115 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-30 16:09:25,115 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-30 16:09:25,115 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-30 16:09:25,121 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:09:32,991 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:09:39,776 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:09:40,099 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:09:40,152 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-04-30 16:09:50,925 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-04-30 16:09:50,925 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-04-30 16:09:50,925 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-30 16:09:50,925 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-30 16:09:50,931 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:09:59,067 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:10:06,501 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:10:13,818 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-30 16:10:14,160 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 16:10:14,675 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-30 16:10:18,139 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-30 16:10:18,238 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-30 16:10:18,387 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-04-30 16:10:31,914 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-04-30 16:10:31,914 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-04-30 16:10:31,915 - pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-04-30 16:10:31,915 - pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-04-30 16:10:31,923 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:10:34,043 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-30 16:10:34,566 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-30 16:10:34,575 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-04-30 16:10:41,848 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-04-30 16:10:41,848 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-04-30 16:10:41,848 - pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-04-30 16:10:41,848 - pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-04-30 16:10:41,854 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:10:42,694 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-04-30 16:10:46,727 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-04-30 16:10:46,727 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-04-30 16:10:46,727 - pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-04-30 16:10:46,727 - pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-04-30 16:10:46,733 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:11:37,489 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-04-30 16:11:37,920 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-04-30 16:11:49,014 - loaders.bigquery_loader - ERROR - Upload fail: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Field customer_id has type FLOAT, which is not supported for clustering.
+2026-04-30 16:11:49,014 - pipeline_orchestrator - CRITICAL - Fail when processing fact_cart_events: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Field customer_id has type FLOAT, which is not supported for clustering.
+2026-04-30 16:11:49,015 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Field customer_id has type FLOAT, which is not supported for clustering. <<<
+2026-04-30 16:13:23,255 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-30 16:13:29,526 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:24:38,390 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:24:38,390 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:24:39,152 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:24:39,153 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:24:39,153 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-31 22:24:39,153 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-31 22:24:39,159 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:24:48,084 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer_staging
+2026-04-31 22:24:48,084 - loaders.bigquery_loader - INFO - Upload successful: dim_customer_staging
+2026-04-31 22:24:48,085 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-31 22:24:48,085 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-31 22:24:48,090 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:24:52,692 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product_staging
+2026-04-31 22:24:52,693 - loaders.bigquery_loader - INFO - Upload successful: dim_product_staging
+2026-04-31 22:24:52,693 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-31 22:24:52,693 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-31 22:24:52,693 - pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-04-31 22:24:52,697 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:25:42,180 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-04-31 22:25:42,654 - transformers.base_transformer - INFO - Handling missing values for '                                 event_key          event_id             session_id  customer_id  ...   device utm_source  utm_campaign event_date_key
+0             add_to_cart_evt_371ec2543769  evt_371ec2543769  sess_16d4694fbdb14807     445412.0  ...   tablet     google   summer_sale     2025-08-25
+1        remove_from_cart_evt_83f027346241  evt_83f027346241  sess_9e8e4f3170ce4ad8    1579679.0  ...   tablet      email          None     2025-08-25
+2        remove_from_cart_evt_17abbd751ddb  evt_17abbd751ddb  sess_b32d2145b67a4d28     652175.0  ...  desktop      email   summer_sale     2025-08-25
+3             add_to_cart_evt_593968d72f3a  evt_593968d72f3a  sess_be92fb88165148a8     787690.0  ...   tablet     direct   summer_sale     2025-08-25
+4        remove_from_cart_evt_b1a0c75111b2  evt_b1a0c75111b2  sess_fccd8552ed6a474f       6760.0  ...  desktop     google          None     2025-08-25
+...                                    ...               ...                    ...          ...  ...      ...        ...           ...            ...
+3009995    begin_checkout_evt_1fbb9cc4c98b  evt_1fbb9cc4c98b  sess_05867a014a464601          NaN  ...   mobile     google   summer_sale     2025-12-16
+3009996  add_payment_info_evt_49e992bc585b  evt_49e992bc585b  sess_2f5187dac808479b          NaN  ...   tablet       None   summer_sale     2025-12-16
+3009997    payment_failed_evt_8dbdf1b663f2  evt_8dbdf1b663f2  sess_61b2dfe970cc4fd3    1057609.0  ...  desktop      email  black_friday     2025-12-16
+3009998    begin_checkout_evt_6ecbb6929dea  evt_6ecbb6929dea  sess_d1a8e3b1b56c4d4d     229409.0  ...  desktop      email  black_friday     2025-12-16
+3009999          purchase_evt_3ec7d6097a4d  evt_3ec7d6097a4d  sess_4cbb3acb770341e3     896032.0  ...   mobile     direct          None     2025-12-16
+
+[3010000 rows x 12 columns]'...
+2026-04-31 22:25:42,747 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-04-31 22:25:42,890 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-04-31 22:25:43,318 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-04-31 22:25:43,786 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-04-31 22:25:43,986 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-04-31 22:25:57,822 - loaders.bigquery_loader - ERROR - Upload fail: 404 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Not found: Dataset unigappython:end_to_end_project
+2026-04-31 22:25:57,823 - pipeline_orchestrator - CRITICAL - Fail when processing fact_cart_events: 404 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Not found: Dataset unigappython:end_to_end_project
+2026-04-31 22:25:57,823 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 404 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: Not found: Dataset unigappython:end_to_end_project <<<
+2026-04-31 22:26:13,330 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:26:13,330 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:26:14,200 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:26:14,201 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:26:14,201 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-31 22:26:14,201 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-31 22:26:14,207 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:26:22,287 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer_staging
+2026-04-31 22:26:22,287 - loaders.bigquery_loader - INFO - Upload successful: dim_customer_staging
+2026-04-31 22:26:22,287 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-31 22:26:22,287 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-31 22:26:22,291 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:26:28,402 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product_staging
+2026-04-31 22:26:28,402 - loaders.bigquery_loader - INFO - Upload successful: dim_product_staging
+2026-04-31 22:26:28,402 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-31 22:26:28,403 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-31 22:26:28,403 - pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-04-31 22:26:28,408 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:27:25,280 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-04-31 22:27:25,742 - transformers.base_transformer - INFO - Handling missing values for '                                 event_key          event_id             session_id  customer_id  ...   device utm_source  utm_campaign event_date_key
+0             add_to_cart_evt_371ec2543769  evt_371ec2543769  sess_16d4694fbdb14807     445412.0  ...   tablet     google   summer_sale     2025-08-25
+1        remove_from_cart_evt_83f027346241  evt_83f027346241  sess_9e8e4f3170ce4ad8    1579679.0  ...   tablet      email          None     2025-08-25
+2        remove_from_cart_evt_17abbd751ddb  evt_17abbd751ddb  sess_b32d2145b67a4d28     652175.0  ...  desktop      email   summer_sale     2025-08-25
+3             add_to_cart_evt_593968d72f3a  evt_593968d72f3a  sess_be92fb88165148a8     787690.0  ...   tablet     direct   summer_sale     2025-08-25
+4        remove_from_cart_evt_b1a0c75111b2  evt_b1a0c75111b2  sess_fccd8552ed6a474f       6760.0  ...  desktop     google          None     2025-08-25
+...                                    ...               ...                    ...          ...  ...      ...        ...           ...            ...
+3009995    begin_checkout_evt_1fbb9cc4c98b  evt_1fbb9cc4c98b  sess_05867a014a464601          NaN  ...   mobile     google   summer_sale     2025-12-16
+3009996  add_payment_info_evt_49e992bc585b  evt_49e992bc585b  sess_2f5187dac808479b          NaN  ...   tablet       None   summer_sale     2025-12-16
+3009997    payment_failed_evt_8dbdf1b663f2  evt_8dbdf1b663f2  sess_61b2dfe970cc4fd3    1057609.0  ...  desktop      email  black_friday     2025-12-16
+3009998    begin_checkout_evt_6ecbb6929dea  evt_6ecbb6929dea  sess_d1a8e3b1b56c4d4d     229409.0  ...  desktop      email  black_friday     2025-12-16
+3009999          purchase_evt_3ec7d6097a4d  evt_3ec7d6097a4d  sess_4cbb3acb770341e3     896032.0  ...   mobile     direct          None     2025-12-16
+
+[3010000 rows x 12 columns]'...
+2026-04-31 22:27:25,836 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-04-31 22:27:25,979 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-04-31 22:27:26,408 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-04-31 22:27:26,871 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-04-31 22:27:27,073 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-04-31 22:28:08,585 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events_staging
+2026-04-31 22:28:08,585 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events_staging
+2026-04-31 22:28:08,585 - pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-04-31 22:28:08,585 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:28:08,586 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:28:08,586 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:28:09,157 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 75d4d256-3b70-463f-aba7-4c0cef43cc46
+
+2026-04-31 22:28:09,157 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 75d4d256-3b70-463f-aba7-4c0cef43cc46
+
+2026-04-31 22:28:09,158 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 75d4d256-3b70-463f-aba7-4c0cef43cc46
+ <<<
+2026-04-31 22:32:23,608 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:32:23,608 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:32:24,338 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:32:24,338 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:32:24,338 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:32:24,338 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:32:24,338 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:32:24,930 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 5a0e7849-5596-4cac-bd83-9eb5ad71ee75
+
+2026-04-31 22:32:24,930 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 5a0e7849-5596-4cac-bd83-9eb5ad71ee75
+
+2026-04-31 22:32:24,930 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer' at [2:37]
+
+Location: US
+Job ID: 5a0e7849-5596-4cac-bd83-9eb5ad71ee75
+ <<<
+2026-04-31 22:33:04,898 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:33:04,898 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:33:05,583 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:33:05,583 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:33:05,583 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:33:05,583 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:33:05,583 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:33:05,987 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: f0c08327-9add-4ef3-b990-6ed1e20d2c91
+
+2026-04-31 22:33:05,987 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: f0c08327-9add-4ef3-b990-6ed1e20d2c91
+
+2026-04-31 22:33:05,988 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: f0c08327-9add-4ef3-b990-6ed1e20d2c91
+ <<<
+2026-04-31 22:35:04,976 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:35:04,976 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:35:05,778 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:35:05,778 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:35:05,779 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:35:05,779 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:35:05,779 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:35:06,368 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 50fc3bfe-cb89-48f3-ae90-ad87167bd7f0
+
+2026-04-31 22:35:06,368 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 50fc3bfe-cb89-48f3-ae90-ad87167bd7f0
+
+2026-04-31 22:35:06,369 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 50fc3bfe-cb89-48f3-ae90-ad87167bd7f0
+ <<<
+2026-04-31 22:36:24,772 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:36:24,772 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:36:25,537 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:36:25,537 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:36:25,537 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:36:25,537 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:36:25,538 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:36:25,994 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 44c145b4-0efa-46e6-be6f-9e9016ecfad3
+
+2026-04-31 22:36:25,994 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 44c145b4-0efa-46e6-be6f-9e9016ecfad3
+
+2026-04-31 22:36:25,994 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 44c145b4-0efa-46e6-be6f-9e9016ecfad3
+ <<<
+2026-04-31 22:36:44,152 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:36:44,153 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:36:44,875 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:36:44,875 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:36:44,875 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:36:44,875 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:36:44,875 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:36:45,236 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 20d26d7f-5feb-4165-bb1f-f3c20a846d7a
+
+2026-04-31 22:36:45,236 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 20d26d7f-5feb-4165-bb1f-f3c20a846d7a
+
+2026-04-31 22:36:45,236 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Expected end of input but got keyword TABLE at [7:18]; reason: invalidQuery, location: query, message: Syntax error: Expected end of input but got keyword TABLE at [7:18]
+
+Location: US
+Job ID: 20d26d7f-5feb-4165-bb1f-f3c20a846d7a
+ <<<
+2026-04-31 22:37:47,326 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:37:47,326 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:37:47,991 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:37:47,991 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:37:47,991 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:37:47,991 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:37:47,991 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:37:48,624 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]
+
+Location: US
+Job ID: c39d9cce-60fe-454b-95ea-05e1f7ea2b37
+
+2026-04-31 22:37:48,624 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]
+
+Location: US
+Job ID: c39d9cce-60fe-454b-95ea-05e1f7ea2b37
+
+2026-04-31 22:37:48,624 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]; reason: invalidQuery, location: query, message: Syntax error: Unexpected string literal 'end_to_end_project.dim_customer_staging' at [8:34]
+
+Location: US
+Job ID: c39d9cce-60fe-454b-95ea-05e1f7ea2b37
+ <<<
+2026-04-31 22:38:18,592 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:38:18,592 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:38:19,298 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:38:19,298 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:38:19,298 - pipeline_orchestrator - INFO - >>> STARTING SQL TRANSFORMATION: Partitioning
+2026-04-31 22:38:19,298 - pipeline_orchestrator - INFO -  Executing SQL query for 'dim_customer'...
+2026-04-31 22:38:19,298 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:38:31,167 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-04-31 22:38:31,168 - pipeline_orchestrator - INFO -  Executing SQL query for 'fact_cart_events'...
+2026-04-31 22:38:31,168 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-04-31 22:38:32,409 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 400 GET https://bigquery.googleapis.com/bigquery/v2/projects/unigappython/queries/e3ec5d42-876c-4a87-89a8-fe243d9d5689?maxResults=0&location=US&prettyPrint=false: Query error: PARTITION BY expression must be DATE(<timestamp_column>), DATE(<datetime_column>), DATETIME_TRUNC(<datetime_column>, DAY/HOUR/MONTH/YEAR), a DATE column, TIMESTAMP_TRUNC(<timestamp_column>, DAY/HOUR/MONTH/YEAR), DATE_TRUNC(<date_column>, MONTH/YEAR), or RANGE_BUCKET(<int64_column>, GENERATE_ARRAY(<int64_value>, <int64_value>[, <int64_value>])) at [2:13]
+
+Location: US
+Job ID: e3ec5d42-876c-4a87-89a8-fe243d9d5689
+
+2026-04-31 22:38:32,410 - pipeline_orchestrator - CRITICAL - Failed to execute SQL Partitioning: 400 GET https://bigquery.googleapis.com/bigquery/v2/projects/unigappython/queries/e3ec5d42-876c-4a87-89a8-fe243d9d5689?maxResults=0&location=US&prettyPrint=false: Query error: PARTITION BY expression must be DATE(<timestamp_column>), DATE(<datetime_column>), DATETIME_TRUNC(<datetime_column>, DAY/HOUR/MONTH/YEAR), a DATE column, TIMESTAMP_TRUNC(<timestamp_column>, DAY/HOUR/MONTH/YEAR), DATE_TRUNC(<date_column>, MONTH/YEAR), or RANGE_BUCKET(<int64_column>, GENERATE_ARRAY(<int64_value>, <int64_value>[, <int64_value>])) at [2:13]
+
+Location: US
+Job ID: e3ec5d42-876c-4a87-89a8-fe243d9d5689
+
+2026-04-31 22:38:32,410 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 GET https://bigquery.googleapis.com/bigquery/v2/projects/unigappython/queries/e3ec5d42-876c-4a87-89a8-fe243d9d5689?maxResults=0&location=US&prettyPrint=false: Query error: PARTITION BY expression must be DATE(<timestamp_column>), DATE(<datetime_column>), DATETIME_TRUNC(<datetime_column>, DAY/HOUR/MONTH/YEAR), a DATE column, TIMESTAMP_TRUNC(<timestamp_column>, DAY/HOUR/MONTH/YEAR), DATE_TRUNC(<date_column>, MONTH/YEAR), or RANGE_BUCKET(<int64_column>, GENERATE_ARRAY(<int64_value>, <int64_value>[, <int64_value>])) at [2:13]
+
+Location: US
+Job ID: e3ec5d42-876c-4a87-89a8-fe243d9d5689
+ <<<
+2026-04-31 22:43:49,957 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:43:49,957 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:43:50,611 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:43:50,612 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:43:50,612 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-31 22:43:50,612 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-31 22:43:50,614 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:43:58,848 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer_staging
+2026-04-31 22:43:58,848 - loaders.bigquery_loader - INFO - Upload successful: dim_customer_staging
+2026-04-31 22:43:58,848 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-31 22:43:58,849 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-31 22:43:58,854 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:44:05,253 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product_staging
+2026-04-31 22:44:05,254 - loaders.bigquery_loader - INFO - Upload successful: dim_product_staging
+2026-04-31 22:44:05,254 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-31 22:44:05,254 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-31 22:44:05,254 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-31 22:44:05,259 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:44:13,286 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:44:20,189 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:44:20,466 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:44:20,525 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-04-31 22:44:33,179 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-04-31 22:44:33,180 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-04-31 22:44:33,180 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-31 22:44:33,180 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-31 22:44:33,184 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:44:46,365 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:44:53,981 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:45:01,253 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-31 22:45:01,568 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-31 22:45:02,026 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:45:05,673 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-31 22:45:05,773 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-31 22:45:05,929 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-04-31 22:45:19,020 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-04-31 22:45:19,020 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-04-31 22:45:19,020 - pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-04-31 22:45:19,021 - pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-04-31 22:45:19,027 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:45:21,744 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-31 22:45:21,809 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-31 22:45:21,817 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-04-31 22:45:22,015 - loaders.bigquery_loader - ERROR - Upload fail: Casting from timestamp[ns] to timestamp[us] would lose data: 1763231104696
+2026-04-31 22:45:22,015 - pipeline_orchestrator - CRITICAL - Fail when processing fact_payment: Casting from timestamp[ns] to timestamp[us] would lose data: 1763231104696
+2026-04-31 22:45:22,015 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: Casting from timestamp[ns] to timestamp[us] would lose data: 1763231104696 <<<
+2026-04-31 22:53:09,813 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-04-31 22:53:09,813 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-04-31 22:53:10,572 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-04-31 22:53:10,572 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-04-31 22:53:10,572 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-04-31 22:53:10,572 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-04-31 22:53:10,577 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:53:19,712 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-04-31 22:53:19,712 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-04-31 22:53:19,712 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-04-31 22:53:19,712 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-04-31 22:53:19,717 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:53:25,163 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-04-31 22:53:25,163 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-04-31 22:53:25,164 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-04-31 22:53:25,164 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-04-31 22:53:25,164 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-04-31 22:53:25,168 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:53:33,276 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:53:44,526 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:53:44,809 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:53:44,866 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-04-31 22:54:01,216 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-04-31 22:54:01,216 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-04-31 22:54:01,216 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-04-31 22:54:01,216 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-04-31 22:54:01,221 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:54:10,608 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:54:18,129 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:54:25,517 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-04-31 22:54:25,844 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-31 22:54:26,316 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-04-31 22:54:29,774 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-04-31 22:54:29,870 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-04-31 22:54:30,032 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-04-31 22:54:44,884 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-04-31 22:54:44,884 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-04-31 22:54:44,884 - pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-04-31 22:54:44,884 - pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-04-31 22:54:44,890 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:54:47,186 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-31 22:54:47,234 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-04-31 22:54:47,242 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-04-31 22:54:55,893 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-04-31 22:54:55,893 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-04-31 22:54:55,893 - pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-04-31 22:54:55,894 - pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-04-31 22:54:55,898 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:54:56,797 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-04-31 22:55:00,754 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-04-31 22:55:00,754 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-04-31 22:55:00,754 - pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-04-31 22:55:00,755 - pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-04-31 22:55:00,760 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-04-31 22:55:51,704 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-04-31 22:55:52,185 - transformers.base_transformer - INFO - Handling missing values'...
+2026-04-31 22:55:52,328 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-04-31 22:55:52,529 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-04-31 22:55:52,958 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-04-31 22:55:53,422 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-04-31 22:55:53,657 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-04-31 22:56:28,205 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-04-31 22:56:28,205 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-04-31 22:56:28,205 - pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-04-31 22:56:28,206 - pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-01 00:05:11,473 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-01 00:05:11,474 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-01 00:05:12,111 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-01 00:05:12,111 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-01 00:05:12,112 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-01 00:05:12,112 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-01 00:05:12,117 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-01 00:05:20,317 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-01 00:05:20,318 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-01 00:05:20,318 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-01 00:05:20,318 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-01 00:05:20,322 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-01 00:05:25,028 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-01 00:05:25,029 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-01 00:05:25,029 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-01 00:05:25,029 - pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-01 00:05:25,029 - pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-01 00:05:25,029 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-01 00:05:32,039 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-01 00:05:32,039 - pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-01 00:31:19,579 - main - INFO - ==================================================
+2026-05-01 00:31:19,579 - main - INFO - 🚀 ETL PIPELINE STARTED AT: 2026-05-01 00:31:19.579913
+2026-05-01 00:31:19,579 - main - INFO - ==================================================
+2026-05-01 00:31:19,579 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-01 00:31:19,581 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-01 00:31:19,581 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-01 00:31:20,244 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-01 00:31:20,244 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-01 00:31:20,244 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-01 00:31:20,244 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-01 00:31:20,248 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-01 00:31:30,920 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-01 00:31:30,921 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-01 00:31:30,921 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-01 00:31:30,921 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-01 00:31:30,926 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-01 00:31:35,221 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-01 00:31:35,221 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-01 00:31:35,221 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-01 00:31:35,221 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-01 00:31:35,222 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-01 00:31:35,222 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-01 00:31:42,678 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-01 00:31:42,679 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-01 00:31:42,680 - main - INFO - ==================================================
+2026-05-01 00:31:42,680 - main - INFO - ✅ ETL PIPELINE FINISHED SUCCESSFULLY
+2026-05-01 00:31:42,680 - main - INFO - ⏱  Total Execution Time: 23.10 seconds
+2026-05-01 00:31:42,680 - main - INFO - ==================================================
+2026-05-02 11:35:22,994 - main - INFO - ==================================================
+2026-05-02 11:35:22,994 - main - INFO - 🚀 ETL PIPELINE STARTED AT: 2026-05-02 11:35:22.994728
+2026-05-02 11:35:22,994 - main - INFO - ==================================================
+2026-05-02 11:35:22,994 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-02 11:35:22,996 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-02 11:35:22,996 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-02 11:35:23,705 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-02 11:35:23,705 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-02 11:35:23,705 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-02 11:35:23,705 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-02 11:35:23,710 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-02 11:35:26,650 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-02 11:35:27,964 - loaders.bigquery_loader - ERROR - Upload fail: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: Incompatible table partitioning specification. Expects partitioning specification none, but input partitioning specification is interval(type:day,field:created_at)
+2026-05-02 11:35:27,964 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing DIM_CUSTOMER: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: Incompatible table partitioning specification. Expects partitioning specification none, but input partitioning specification is interval(type:day,field:created_at)
+2026-05-02 11:35:27,965 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: Incompatible table partitioning specification. Expects partitioning specification none, but input partitioning specification is interval(type:day,field:created_at) <<<
+2026-05-02 11:35:27,965 - main - CRITICAL - ==================================================
+2026-05-02 11:35:27,965 - main - CRITICAL - ❌ ETL PIPELINE FAILED FATALLY
+2026-05-02 11:35:27,965 - main - CRITICAL - Error Details: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: Incompatible table partitioning specification. Expects partitioning specification none, but input partitioning specification is interval(type:day,field:created_at)
+2026-05-02 11:35:27,965 - main - CRITICAL - ==================================================
+2026-05-04 09:57:05,537 - main - INFO - ==================================================
+2026-05-04 09:57:05,537 - main - INFO - 🚀 ETL PIPELINE STARTED AT: 2026-05-04 09:57:05.537564
+2026-05-04 09:57:05,537 - main - INFO - ==================================================
+2026-05-04 09:57:05,537 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 09:57:05,538 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 09:57:05,538 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 09:57:06,221 - loaders.bigquery_loader - INFO - There are 0 dataset available, let's creat a dataset first
+2026-05-04 09:57:06,983 - loaders.bigquery_loader - INFO - Successfully created new dataset with ID: end_to_end_project
+2026-05-04 09:57:06,983 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 09:57:06,983 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 09:57:06,989 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 09:57:09,993 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 09:57:23,674 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 09:57:23,675 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 09:57:23,676 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 09:57:23,676 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 09:57:23,678 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 09:57:28,171 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 09:57:28,171 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 09:57:28,171 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 09:57:28,171 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-04 09:57:28,171 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-04 09:57:28,172 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-04 09:57:28,898 - loaders.bigquery_loader - ERROR - Failed to execute query. Error: 404 Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US; reason: notFound, message: Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US
+
+Location: US
+Job ID: 8060122c-d0b2-43c0-9091-ed5f2da8bc42
+
+2026-05-04 09:57:28,898 - orchestration.pipeline_orchestrator - CRITICAL - Failed to execute SQL: 404 Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US; reason: notFound, message: Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US
+
+Location: US
+Job ID: 8060122c-d0b2-43c0-9091-ed5f2da8bc42
+
+2026-05-04 09:57:28,899 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 404 Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US; reason: notFound, message: Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US
+
+Location: US
+Job ID: 8060122c-d0b2-43c0-9091-ed5f2da8bc42
+ <<<
+2026-05-04 09:57:28,899 - main - CRITICAL - ==================================================
+2026-05-04 09:57:28,899 - main - CRITICAL - ❌ ETL PIPELINE FAILED:
+2026-05-04 09:57:28,899 - main - CRITICAL - Error Details: 404 Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US; reason: notFound, message: Not found: Table unigappython:end_to_end_project.fact_orders was not found in location US
+
+Location: US
+Job ID: 8060122c-d0b2-43c0-9091-ed5f2da8bc42
+
+2026-05-04 09:57:28,899 - main - CRITICAL - ==================================================
+2026-05-04 10:04:14,856 - main - INFO - ==================================================
+2026-05-04 10:04:14,857 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 10:04:14.857113
+2026-05-04 10:04:14,857 - main - INFO - ==================================================
+2026-05-04 10:04:14,857 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 10:04:14,858 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 10:04:14,858 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 10:04:15,726 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 10:04:15,727 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 10:04:15,727 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 10:04:15,727 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 10:04:15,732 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:04:18,320 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 10:04:35,183 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 10:04:35,183 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 10:04:35,183 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 10:04:35,183 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 10:04:35,187 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:04:40,405 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 10:04:40,405 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 10:04:40,406 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 10:04:40,406 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 10:04:40,406 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 10:04:40,411 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:04:48,499 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:04:55,720 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:04:56,000 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:04:56,059 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:04:56,060 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 10:05:09,794 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 10:05:09,794 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 10:05:09,795 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 10:05:09,795 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 10:05:09,800 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:05:18,366 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:05:26,428 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:05:34,544 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 10)
+2026-05-04 10:05:34,950 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:05:35,580 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:05:39,148 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 13)
+2026-05-04 10:05:39,238 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:05:39,367 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:05:39,367 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 10:05:40,657 - loaders.bigquery_loader - ERROR - Upload fail: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:05:40,657 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing fact_order_items: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:05:40,657 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: The field specified for partitioning cannot be found in the schema. <<<
+2026-05-04 10:05:40,657 - main - CRITICAL - ==================================================
+2026-05-04 10:05:40,658 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-04 10:05:40,658 - main - CRITICAL - Error Details: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=resumable: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:05:40,658 - main - CRITICAL - ==================================================
+2026-05-04 10:21:08,679 - main - INFO - ==================================================
+2026-05-04 10:21:08,679 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 10:21:08.679565
+2026-05-04 10:21:08,679 - main - INFO - ==================================================
+2026-05-04 10:21:08,679 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 10:21:08,681 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 10:21:08,681 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 10:21:09,344 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 10:21:09,344 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 10:21:09,344 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 10:21:09,344 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 10:21:09,349 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:21:11,859 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 10:21:28,928 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 10:21:28,928 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 10:21:28,929 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 10:21:28,929 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 10:21:28,935 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:21:33,406 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 10:21:33,406 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 10:21:33,407 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 10:21:33,407 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 10:21:33,407 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 10:21:33,411 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:21:41,800 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:21:48,068 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:21:48,351 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:21:48,410 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:21:48,410 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 10:22:06,508 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 10:22:06,508 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 10:22:06,509 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 10:22:06,509 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 10:22:06,513 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:22:15,552 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:22:23,980 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:22:32,601 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-04 10:22:32,945 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:22:33,573 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:22:37,367 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-04 10:22:37,469 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:22:37,696 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:22:37,697 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 10:22:59,966 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-04 10:22:59,968 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-04 10:22:59,968 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-04 10:22:59,968 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-04 10:22:59,978 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:23:02,113 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 10:23:02,165 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 10:23:02,173 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-04 10:23:02,173 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-04 10:23:08,561 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-04 10:23:08,562 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-04 10:23:08,562 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-04 10:23:08,562 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-04 10:23:08,568 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:23:09,428 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-04 10:23:09,428 - loaders.bigquery_loader - INFO - Table is cluster by tranaction_date_key column
+2026-05-04 10:23:09,838 - loaders.bigquery_loader - ERROR - Upload fail: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:23:09,838 - orchestration.pipeline_orchestrator - CRITICAL - Fail when processing fact_bank_transactions: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:23:09,838 - orchestration.pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: The field specified for partitioning cannot be found in the schema. <<<
+2026-05-04 10:23:09,838 - main - CRITICAL - ==================================================
+2026-05-04 10:23:09,838 - main - CRITICAL - ETL PIPELINE FAILED:
+2026-05-04 10:23:09,839 - main - CRITICAL - Error Details: 400 POST https://bigquery.googleapis.com/upload/bigquery/v2/projects/unigappython/jobs?uploadType=multipart: The field specified for partitioning cannot be found in the schema.
+2026-05-04 10:23:09,839 - main - CRITICAL - ==================================================
+2026-05-04 10:25:24,272 - main - INFO - ==================================================
+2026-05-04 10:25:24,272 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 10:25:24.272153
+2026-05-04 10:25:24,272 - main - INFO - ==================================================
+2026-05-04 10:25:24,272 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 10:25:24,273 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 10:25:24,273 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 10:25:25,060 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 10:25:25,061 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 10:25:25,061 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 10:25:25,061 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 10:25:25,065 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:25:27,306 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 10:25:40,831 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 10:25:40,832 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 10:25:40,832 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 10:25:40,832 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 10:25:40,838 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:25:45,027 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 10:25:45,028 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 10:25:45,028 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 10:25:45,028 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 10:25:45,028 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 10:25:45,034 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:25:53,910 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:26:01,287 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:26:01,572 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:26:01,633 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:26:01,633 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 10:26:19,712 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 10:26:19,713 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 10:26:19,713 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 10:26:19,713 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 10:26:19,718 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:26:29,180 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:26:36,857 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:26:45,314 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-04 10:26:45,668 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:26:46,260 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 10:26:49,995 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-04 10:26:50,101 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 10:26:50,299 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 10:26:50,299 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 10:27:07,565 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-04 10:27:07,566 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-04 10:27:07,567 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-04 10:27:07,567 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-04 10:27:07,574 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:27:10,615 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 10:27:10,666 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 10:27:10,674 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-04 10:27:10,675 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-04 10:27:17,754 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-04 10:27:17,755 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-04 10:27:17,755 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-04 10:27:17,755 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-04 10:27:17,759 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:27:18,610 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-04 10:27:18,611 - loaders.bigquery_loader - INFO - Table is cluster by transaction_date_key column
+2026-05-04 10:27:24,418 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-05-04 10:27:24,420 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-05-04 10:27:24,420 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-05-04 10:27:24,420 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-05-04 10:27:24,426 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 10:28:20,581 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-05-04 10:28:21,061 - transformers.base_transformer - INFO - Handling missing values'...
+2026-05-04 10:28:21,200 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-05-04 10:28:21,400 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-05-04 10:28:21,831 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-05-04 10:28:22,296 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-05-04 10:28:22,529 - loaders.bigquery_loader - INFO - Table is cluster by event_date_key column
+2026-05-04 10:28:22,529 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-05-04 10:29:01,426 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-05-04 10:29:01,427 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-05-04 10:29:01,428 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-05-04 10:29:01,429 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-04 10:29:01,429 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-04 10:29:01,430 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-04 10:29:22,632 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-04 10:29:22,633 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-04 10:29:22,633 - main - INFO - ==================================================
+2026-05-04 10:29:22,634 - main - INFO - ETL PIPELINE FINISHED SUCCESSFULLY
+2026-05-04 10:29:22,634 - main - INFO - Total Execution Time: 238.36 seconds
+2026-05-04 10:29:22,634 - main - INFO - ==================================================
+2026-05-04 11:27:36,313 - main - INFO - ==================================================
+2026-05-04 11:27:36,313 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 11:27:36.313651
+2026-05-04 11:27:36,313 - main - INFO - ==================================================
+2026-05-04 11:27:36,313 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 11:27:36,315 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 11:27:36,315 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 11:27:36,920 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 11:27:36,920 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 11:27:36,920 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 11:27:36,920 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 11:27:36,922 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:27:38,705 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 11:27:55,861 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 11:27:55,861 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 11:27:55,861 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 11:27:55,861 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 11:27:55,863 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:28:00,537 - main - INFO - ==================================================
+2026-05-04 11:28:00,537 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 11:28:00.537913
+2026-05-04 11:28:00,537 - main - INFO - ==================================================
+2026-05-04 11:28:00,537 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 11:28:00,539 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 11:28:00,539 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 11:28:01,119 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 11:28:01,120 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 11:28:01,120 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 11:28:01,120 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 11:28:01,121 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:28:03,027 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 11:28:16,720 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 11:28:16,720 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 11:28:16,720 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 11:28:16,720 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 11:28:16,722 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:28:21,492 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 11:28:21,492 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 11:28:21,492 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 11:28:21,492 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 11:28:21,492 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 11:28:21,493 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:28:29,735 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:28:37,584 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 11:28:37,908 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 11:28:37,968 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 11:28:37,969 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 11:28:53,418 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 11:28:53,418 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 11:28:53,418 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 11:28:53,418 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 11:28:53,420 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:29:03,076 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:29:10,925 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 11:29:19,766 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-04 11:29:20,154 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 11:29:20,952 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 11:29:24,830 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-04 11:29:24,925 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 11:29:25,105 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 11:29:25,105 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 11:29:40,464 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-04 11:29:40,465 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-04 11:29:40,465 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-04 11:29:40,465 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-04 11:29:40,467 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:29:42,753 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 11:29:42,806 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 11:29:42,814 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-04 11:29:42,814 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-04 11:29:49,302 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-04 11:29:49,302 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-04 11:29:49,302 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-04 11:29:49,302 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-04 11:29:49,304 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:29:50,063 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-04 11:29:50,063 - loaders.bigquery_loader - INFO - Table is cluster by transaction_date_key column
+2026-05-04 11:29:55,004 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-05-04 11:29:55,004 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-05-04 11:29:55,004 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-05-04 11:29:55,005 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-05-04 11:29:55,006 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 11:30:52,759 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-05-04 11:30:53,239 - transformers.base_transformer - INFO - Handling missing values'...
+2026-05-04 11:30:53,387 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-05-04 11:30:53,589 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-05-04 11:30:54,021 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-05-04 11:30:54,517 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-05-04 11:30:54,753 - loaders.bigquery_loader - INFO - Table is cluster by event_date_key column
+2026-05-04 11:30:54,753 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-05-04 11:31:37,058 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-05-04 11:31:37,058 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-05-04 11:31:37,058 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-05-04 11:31:37,058 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-04 11:31:37,059 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-04 11:31:37,059 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-04 11:31:58,399 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-04 11:31:58,399 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-04 11:31:58,400 - main - INFO - ==================================================
+2026-05-04 11:31:58,400 - main - INFO - ETL PIPELINE FINISHED SUCCESSFULLY
+2026-05-04 11:31:58,400 - main - INFO - Total Execution Time: 237.86 seconds
+2026-05-04 11:31:58,400 - main - INFO - ==================================================
+2026-05-04 14:05:27,249 - main - INFO - ==================================================
+2026-05-04 14:05:27,250 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-04 14:05:27.250034
+2026-05-04 14:05:27,250 - main - INFO - ==================================================
+2026-05-04 14:05:27,250 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-04 14:05:27,251 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 14:05:27,251 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 14:05:27,925 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 14:05:27,925 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 14:05:27,925 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 14:05:27,925 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 14:05:27,927 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:05:30,246 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 14:05:47,233 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 14:05:47,233 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 14:05:47,233 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 14:05:47,233 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 14:05:47,234 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:05:52,585 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 14:05:52,586 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 14:05:52,586 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 14:05:52,586 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 14:05:52,586 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 14:05:52,587 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:05:59,947 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:06:06,752 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:06:06,978 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:06:07,036 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 14:06:07,036 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 14:06:20,788 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 14:06:20,788 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 14:06:20,788 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 14:06:20,788 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 14:06:20,789 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:06:30,448 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:06:38,999 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:06:47,739 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-04 14:06:48,085 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 14:06:48,591 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:06:52,585 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-04 14:06:52,683 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 14:06:52,919 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 14:06:52,920 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 14:07:07,033 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-04 14:07:07,034 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-04 14:07:07,034 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-04 14:07:07,034 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-04 14:07:07,036 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:07:08,970 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 14:07:09,021 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 14:07:09,029 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-04 14:07:09,029 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-04 14:07:15,574 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-04 14:07:15,574 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-04 14:07:15,574 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-04 14:07:15,574 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-04 14:07:15,575 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:07:16,520 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-04 14:07:16,520 - loaders.bigquery_loader - INFO - Table is cluster by transaction_date_key column
+2026-05-04 14:07:21,558 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-05-04 14:07:21,558 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-05-04 14:07:21,558 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-05-04 14:07:21,558 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-05-04 14:07:21,560 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:08:17,267 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-05-04 14:08:17,750 - transformers.base_transformer - INFO - Handling missing values'...
+2026-05-04 14:08:17,892 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-05-04 14:08:18,101 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-05-04 14:08:18,540 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-05-04 14:08:19,040 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-05-04 14:08:19,280 - loaders.bigquery_loader - INFO - Table is cluster by event_date_key column
+2026-05-04 14:08:19,280 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-05-04 14:08:56,307 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-05-04 14:08:56,308 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-05-04 14:08:56,308 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-05-04 14:08:56,308 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-04 14:08:56,309 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-04 14:08:56,309 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-04 14:09:22,654 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-04 14:09:22,655 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-04 14:09:22,655 - main - INFO - ==================================================
+2026-05-04 14:09:22,655 - main - INFO - ETL PIPELINE FINISHED SUCCESSFULLY
+2026-05-04 14:09:22,655 - main - INFO - Total Execution Time: 235.40 seconds
+2026-05-04 14:09:22,655 - main - INFO - ==================================================
+2026-05-04 14:14:28,151 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-04 14:14:28,151 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-04 14:14:28,941 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-04 14:14:28,941 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-04 14:14:28,941 - pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-04 14:14:28,941 - pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-04 14:14:28,943 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:14:31,097 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-04 14:14:44,764 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-04 14:14:44,764 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-04 14:14:44,764 - pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-04 14:14:44,764 - pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-04 14:14:44,766 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:14:49,099 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-04 14:14:49,099 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-04 14:14:49,099 - pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-04 14:14:49,099 - pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-04 14:14:49,099 - pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-04 14:14:49,101 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:14:57,130 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:15:03,840 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:15:04,073 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:15:04,132 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 14:15:04,132 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-04 14:15:22,140 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-04 14:15:22,140 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-04 14:15:22,140 - pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-04 14:15:22,140 - pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-04 14:15:22,141 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:15:30,176 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:15:38,506 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:15:45,920 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-04 14:15:46,235 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 14:15:46,690 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-04 14:15:50,336 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-04 14:15:50,438 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-04 14:15:50,603 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-04 14:15:50,603 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-04 14:16:05,181 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-04 14:16:05,182 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-04 14:16:05,182 - pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-04 14:16:05,182 - pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-04 14:16:05,184 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:16:07,977 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 14:16:08,027 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-04 14:16:08,035 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-04 14:16:08,035 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-04 14:16:13,070 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-04 14:16:13,070 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-04 14:16:13,070 - pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-04 14:16:13,070 - pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-04 14:16:13,071 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:16:13,883 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-04 14:16:13,884 - loaders.bigquery_loader - INFO - Table is cluster by transaction_date_key column
+2026-05-04 14:16:44,981 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-05-04 14:16:44,981 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-05-04 14:16:44,981 - pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-05-04 14:16:44,981 - pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-05-04 14:16:44,982 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-04 14:17:32,497 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-05-04 14:17:32,972 - transformers.base_transformer - INFO - Handling missing values'...
+2026-05-04 14:17:33,108 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-05-04 14:17:33,310 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-05-04 14:17:33,742 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-05-04 14:17:34,260 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-05-04 14:17:34,498 - loaders.bigquery_loader - INFO - Table is cluster by event_date_key column
+2026-05-04 14:17:34,499 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-05-04 14:18:09,972 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-05-04 14:18:09,972 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-05-04 14:18:09,972 - pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-05-04 14:18:09,972 - pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-04 14:18:09,972 - pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-04 14:18:09,972 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-04 14:18:31,213 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-04 14:18:31,213 - pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-06 14:45:54,595 - main - INFO - ==================================================
+2026-05-06 14:45:54,596 - main - INFO - ETL PIPELINE STARTED AT: 2026-05-06 14:45:54.596288
+2026-05-06 14:45:54,596 - main - INFO - ==================================================
+2026-05-06 14:45:54,596 - main - INFO - Initializing Pipeline with Bucket: 'minpy' | Dataset: 'end_to_end_project'
+2026-05-06 14:45:54,597 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-06 14:45:54,597 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-06 14:45:55,230 - loaders.bigquery_loader - INFO - Found 1 dataset:
+2026-05-06 14:45:55,230 - loaders.bigquery_loader - INFO -  - Dataset ID: end_to_end_project
+2026-05-06 14:45:55,230 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: DIMENSION TABLES ---
+2026-05-06 14:45:55,230 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_customer'...
+2026-05-06 14:45:55,232 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:45:57,628 - loaders.bigquery_loader - INFO - Table is cluster by created_at column
+2026-05-06 14:46:10,771 - loaders.bigquery_loader - INFO - Upload succesfully. 100000 rows are loaded to dim_customer
+2026-05-06 14:46:10,771 - loaders.bigquery_loader - INFO - Upload successful: dim_customer
+2026-05-06 14:46:10,771 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_customer'.
+2026-05-06 14:46:10,771 - orchestration.pipeline_orchestrator - INFO - Processing 'dim_product'...
+2026-05-06 14:46:10,772 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:46:14,997 - loaders.bigquery_loader - INFO - Upload succesfully. 1300 rows are loaded to dim_product
+2026-05-06 14:46:14,997 - loaders.bigquery_loader - INFO - Upload successful: dim_product
+2026-05-06 14:46:14,997 - orchestration.pipeline_orchestrator - INFO - Finished 'dim_product'.
+2026-05-06 14:46:14,997 - orchestration.pipeline_orchestrator - INFO - --- Starting Process: FACT TABLES ---
+2026-05-06 14:46:14,997 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_orders'...
+2026-05-06 14:46:14,999 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:46:23,582 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:46:30,981 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-06 14:46:31,205 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-06 14:46:31,265 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-06 14:46:31,265 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'channel'] column
+2026-05-06 14:46:46,459 - loaders.bigquery_loader - INFO - Upload succesfully. 700000 rows are loaded to fact_orders
+2026-05-06 14:46:46,459 - loaders.bigquery_loader - INFO - Upload successful: fact_orders
+2026-05-06 14:46:46,459 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_orders'.
+2026-05-06 14:46:46,459 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_order_items'...
+2026-05-06 14:46:46,462 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:46:55,408 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:47:03,884 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-06 14:47:12,892 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (1499502, 11)
+2026-05-06 14:47:13,339 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-06 14:47:14,156 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_key'
+2026-05-06 14:47:18,075 - transformers.base_transformer - INFO - Unflattening complete. Output shape: (599527, 14)
+2026-05-06 14:47:18,196 - transformers.base_transformer - INFO - Successfully created surrogate key 'order_item_key'
+2026-05-06 14:47:18,531 - loaders.bigquery_loader - INFO - Table is cluster by order_date_key column
+2026-05-06 14:47:18,531 - loaders.bigquery_loader - INFO - Table is cluster by ['product_id'] column
+2026-05-06 14:47:39,142 - loaders.bigquery_loader - INFO - Upload succesfully. 2099029 rows are loaded to fact_order_items
+2026-05-06 14:47:39,142 - loaders.bigquery_loader - INFO - Upload successful: fact_order_items
+2026-05-06 14:47:39,142 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_order_items'.
+2026-05-06 14:47:39,142 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_payment'...
+2026-05-06 14:47:39,145 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:47:41,163 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-06 14:47:41,216 - transformers.base_transformer - INFO - Successfully created surrogate key 'payment_key'
+2026-05-06 14:47:41,225 - loaders.bigquery_loader - INFO - Table is cluster by payment_date_key column
+2026-05-06 14:47:41,225 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'payment_gateway'] column
+2026-05-06 14:47:48,588 - loaders.bigquery_loader - INFO - Upload succesfully. 95000 rows are loaded to fact_payment
+2026-05-06 14:47:48,588 - loaders.bigquery_loader - INFO - Upload successful: fact_payment
+2026-05-06 14:47:48,588 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_payment'.
+2026-05-06 14:47:48,588 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_bank_transactions'...
+2026-05-06 14:47:48,590 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:47:49,478 - transformers.base_transformer - INFO - Successfully created surrogate key 'transaction_key'
+2026-05-06 14:47:49,479 - loaders.bigquery_loader - INFO - Table is cluster by transaction_date_key column
+2026-05-06 14:47:56,166 - loaders.bigquery_loader - INFO - Upload succesfully. 5000 rows are loaded to fact_bank_transactions
+2026-05-06 14:47:56,166 - loaders.bigquery_loader - INFO - Upload successful: fact_bank_transactions
+2026-05-06 14:47:56,166 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_bank_transactions'.
+2026-05-06 14:47:56,166 - orchestration.pipeline_orchestrator - INFO - Processing 'fact_cart_events'...
+2026-05-06 14:47:56,167 - extractors.base_extractor - INFO - Successfully connected to GCS bucket: minpy
+2026-05-06 14:48:59,706 - transformers.base_transformer - INFO - Successfully created surrogate key 'event_key'
+2026-05-06 14:49:00,458 - transformers.base_transformer - INFO - Handling missing values'...
+2026-05-06 14:49:00,647 - transformers.base_transformer - INFO - Column customer_id HAS FILLED 899497 values by '-1'
+2026-05-06 14:49:00,926 - transformers.base_transformer - INFO - Column product_id HAS FILLED 1929083 values by '-1'
+2026-05-06 14:49:01,538 - transformers.base_transformer - INFO - Column utm_source HAS FILLED 602276 values by 'unidentified'
+2026-05-06 14:49:02,281 - transformers.base_transformer - INFO - Column utm_campaign HAS FILLED 752503 values by 'unidentified'
+2026-05-06 14:49:02,573 - loaders.bigquery_loader - INFO - Table is cluster by event_date_key column
+2026-05-06 14:49:02,573 - loaders.bigquery_loader - INFO - Table is cluster by ['customer_id', 'session_id', 'event_type'] column
+2026-05-06 14:49:52,117 - loaders.bigquery_loader - INFO - Upload succesfully. 3010000 rows are loaded to fact_cart_events
+2026-05-06 14:49:52,117 - loaders.bigquery_loader - INFO - Upload successful: fact_cart_events
+2026-05-06 14:49:52,117 - orchestration.pipeline_orchestrator - INFO - Finished 'fact_cart_events'.
+2026-05-06 14:49:52,117 - orchestration.pipeline_orchestrator - INFO - >>> STARTING SQL EXECUTE
+2026-05-06 14:49:52,117 - orchestration.pipeline_orchestrator - INFO -  Executing SQL query: Updating buying aggregate value and customer's segment
+2026-05-06 14:49:52,117 - loaders.bigquery_loader - INFO - Executing custom SQL query...
+2026-05-06 14:50:13,596 - loaders.bigquery_loader - INFO - SQL Query executed successfully.
+2026-05-06 14:50:13,596 - orchestration.pipeline_orchestrator - INFO - >>> PIPELINE FINISHED SUCCESSFULLY <<<
+2026-05-06 14:50:13,596 - main - INFO - ==================================================
+2026-05-06 14:50:13,597 - main - INFO - ETL PIPELINE FINISHED SUCCESSFULLY
+2026-05-06 14:50:13,597 - main - INFO - Total Execution Time: 259.00 seconds
+2026-05-06 14:50:13,597 - main - INFO - ==================================================
+2026-05-09 16:15:45,779 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-09 16:15:45,779 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-09 16:15:46,123 - loaders.bigquery_loader - ERROR - Error in check_dataset_available: ('invalid_grant: Invalid grant: account not found', {'error': 'invalid_grant', 'error_description': 'Invalid grant: account not found'})
+2026-05-09 16:15:46,123 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: ('invalid_grant: Invalid grant: account not found', {'error': 'invalid_grant', 'error_description': 'Invalid grant: account not found'}) <<<
+2026-05-09 16:17:33,239 - loaders.bigquery_loader - INFO - Successfully initialized BigQuery Client, project: 'unigappython'.
+2026-05-09 16:17:33,239 - pipeline_orchestrator - INFO - >>> PIPELINE STARTED <<<
+2026-05-09 16:18:02,461 - loaders.bigquery_loader - ERROR - Error in check_dataset_available: ('invalid_grant: Invalid grant: account not found', {'error': 'invalid_grant', 'error_description': 'Invalid grant: account not found'})
+2026-05-09 16:19:26,104 - pipeline_orchestrator - CRITICAL - >>> PIPELINE FAILED: ('invalid_grant: Invalid grant: account not found', {'error': 'invalid_grant', 'error_description': 'Invalid grant: account not found'}) <<<
+

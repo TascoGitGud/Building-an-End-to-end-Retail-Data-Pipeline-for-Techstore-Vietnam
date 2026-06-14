@@ -401,7 +401,7 @@ BUCKET_NAME = 'your-gcs-bucket-name'
 DATASET_ID = 'your-dataset'
 ```
 
-**6. Run the pipeline**
+**5. Run the pipeline**
 ```bash
 python main.py
 ```

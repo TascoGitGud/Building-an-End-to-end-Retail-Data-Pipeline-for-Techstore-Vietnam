@@ -1,6 +1,3 @@
-# 🏗️ Building an End-to-end Retail Data Pipeline for Techstore Vietnam | Python / SQL / Power BI
-### End-to-end ETL Pipeline | Python · Google Cloud Storage · BigQuery · Power BI | Star Schema Data Warehouse
-
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Google BigQuery](https://img.shields.io/badge/Google_BigQuery-4285F4?style=flat-square&logo=googlebigquery&logoColor=white)
 ![Google Cloud Storage](https://img.shields.io/badge/Google_Cloud_Storage-4285F4?style=flat-square&logo=googlecloud&logoColor=white)
@@ -9,6 +6,12 @@
 ![Status](https://img.shields.io/badge/Status-Completed-success?style=flat-square)
 
 ![Banner](Images/Banner.jpg)
+# 🏗️ Building an End-to-end Retail Data Pipeline for Techstore Vietnam | Python / SQL / Power BI
+### End-to-end ETL Pipeline | Python · Google Cloud Storage · BigQuery · Power BI | Star Schema Data Warehouse
+
+
+
+
 
 ---
 

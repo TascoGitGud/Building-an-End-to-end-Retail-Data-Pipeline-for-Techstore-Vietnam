@@ -11,7 +11,7 @@ _End-to-end Python ETL pipeline that ingests, cleans, and standardizes multi-cha
 
 - 🎯 **Business Question:** How can we centralize fragmented sales channels and payment data into a single source of truth to track automated customer RFM segmentation, daily cash flows, and order payment health?
 - 🏬 **Domain:** Technology Retail & E-commerce
-- 🛠️ **Tools:** Python (Pandas), Google Cloud Storage (GCS), Google BigQuery, Power BI
+- 🛠️ **Tools:** Python, Google Cloud Storage (GCS), Google BigQuery, Power BI
 
 👤 Author: Bạch Minh Nam
 

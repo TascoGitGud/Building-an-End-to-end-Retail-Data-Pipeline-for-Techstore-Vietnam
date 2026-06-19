@@ -241,7 +241,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 |---|---|---|---|---|---|
 | `fact_orders` | Shopify · Online Orders · Sapo POS | `order_date_key` | `customer_id`, `channel` | `order_key` | Every order across all channels. |
 | `fact_order_items` | Shopify · Online Orders · Sapo POS | `order_date_key` | `product_id` | `order_item_key` | Each product line inside an order. |
-| `fact_payments` | ZaloPay · MoMo · PayPal | `payment_date_key` | `customer_id`, `payment_gateway` | `payment_key` | Payment transactions from e-wallet gateways |
+| `fact_payments` | ZaloPay · MoMo · PayPal | `payment_date_key` | `customer_id`, `payment_gateway` | `payment_key` | Payment transactions from e-wallet gateways. |
 | `fact_cart_events` | Cart Tracking | `event_date_key` | `customer_id`, `session_id`, `event_type` | `event_key` | User actions on site. |
 | `fact_bank_transactions` | Mercury Bank | `transaction_date_key` | - | `transaction_key` | Bank-level inflows and outflows. |
 

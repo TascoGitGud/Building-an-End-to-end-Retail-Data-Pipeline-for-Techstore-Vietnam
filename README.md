@@ -210,7 +210,7 @@ After all tables are loaded, the pipeline runs a BigQuery `MERGE` statement that
 check_dataset → process_dimensions() → process_facts() → execute_sql_query()
 ```
 
-Each table has its own `try/except` block - if one source fails (e.g. a bad PayPal file), the rest of the pipeline keeps running. Every step is logged to both the console and a log file via `setup_logger()`.
+Each table has its own `try/except` block - if one source fails, the rest of the pipeline keeps running. Every step is logged to both the console and a log file via `setup_logger()`.
 
 ---
 

@@ -189,7 +189,6 @@ Location: `mercury/`
 ---
 
 ### 🟠 MoMo
-[#-momo](#-momo)
 
 Location: `gs://minpy/momo/`
 
@@ -271,6 +270,6 @@ Location: `cart_tracking/`
 | Online Orders        | `online_orders/`        | `online_orders`                                      | 50K orders              |
 | PayPal               | `paypal/`               | `transactions`                                       | 300 transactions         |
 | Mercury Bank         | `mercury/`              | `accounts`, `transactions`                            | 3 accounts · 500 transactions |
-| MoMo                 | `gs://minpy/momo/`                 | `transactions`                                       | 500 transactions         |
-| ZaloPay              | `gs://minpy/zalopay/`              | `transactions`                                       | 500 transactions         |
-| Cart Tracking         | `gs://minpy/cart_tracking/`        | `cart_events`                                        | 10K+ events             |
+| MoMo                 | `momo/`                 | `transactions`                                       | 500 transactions         |
+| ZaloPay              | `zalopay/`              | `transactions`                                       | 500 transactions         |
+| Cart Tracking         | `cart_tracking/`        | `cart_events`                                        | 10K+ events             |

@@ -126,7 +126,7 @@ Each source has its own data format. Below are three examples:
 }
 ```
 
-> For full column details on all tables, see the 📄 [Data Dictionary](data_dictionary.md)
+> For full column details on all raw data, see the 📄 [Raw Data Dictionary](data_dictionary.md)
 
 ---
 
@@ -254,6 +254,8 @@ Three views sit on top of the fact tables and are ready to query directly from P
 | `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase? Shows full event sequence, session info, and `hours_to_first_purchase`. |
 | `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day? Reconciles sales revenue, payments received, and bank transactions into one daily row with `net_cashflow_vnd`. |
 | `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid? Classifies orders as Paid / Pending / etc.. |
+
+> For full column details on all tables, see the 📄 [Data Dictionary](data_dictionary.md)
 
 ---
 

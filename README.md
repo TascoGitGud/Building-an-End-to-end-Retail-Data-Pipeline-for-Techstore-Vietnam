@@ -226,10 +226,10 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 
 | Table | Source | Partition | Key Column | What It Contains |
 |---|---|---|---|---|
-| `dim_customer` | Shopify | `created_at` | `customer_id` | Customer profile + RFM segment, lifetime value, etc... Updated automatically after each pipeline run. |
-| `dim_product` | Shopify | - | `product_id` | Product name, SKU, category, etc.. |
+| `dim_customer` | Shopify | `created_at` | `customer_id` | Customer profile + RFM segment, lifetime value, etc.. Updated automatically after each pipeline run. |
+| `dim_product` | Shopify | - | `product_id` | Product name, SKU, category, etc. |
 | `dim_location` | Sapo POS | - | `location_id` | Store name, code, city, address, phone. `location_type` = `Offline Store`. |
-| `dim_date` | - | - | `date_key` | Date attributes: year, quarter, month, etc.. |
+| `dim_date` | - | - | `date_key` | Date attributes: year, quarter, month, etc. |
 
 > `dim_staff` was part of the original scope but **not built** - Sapo POS raw data does not include staff information.
 
@@ -251,7 +251,7 @@ Three views sit on top of the fact tables and are ready to query directly from P
 |---|---|---|
 | `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase? Shows full event sequence, session info, and `hours_to_first_purchase`. |
 | `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day? Reconciles sales revenue, payments received, and bank transactions into one daily row with `net_cashflow_vnd`. |
-| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid? Classifies orders as Paid / Pending / etc.. |
+| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid? Classifies orders as *Paid / Pending / etc.* |
 
 > For full column details on all tables, see the 📄 [Data Dictionary](data_dictionary.md)
 

@@ -190,7 +190,7 @@ Location: `mercury/`
 
 ### 🟠 MoMo
 
-Location: `gs://minpy/momo/`
+Location: `momo/`
 
 #### `transactions.json.gz`
 

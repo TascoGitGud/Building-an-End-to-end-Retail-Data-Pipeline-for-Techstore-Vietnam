@@ -81,9 +81,9 @@ All raw data is stored in **Google Cloud Storage (GCS)** as `.json.gz` files, on
 | `Mercury Bank` | `mercury/` | 3 accounts · 500 transactions | `.json.gz` |
 | `Cart Tracking` | `cart_tracking/` | 10,000+ events | `.json.gz` |
 
-### Sample Raw Data Schemas
+### Raw Data Schemas
 
-Each source has its own data format. Below are three examples:
+Each source has its own data format. Below are example:
 
 **Shopify Orders**
 ```json
@@ -97,34 +97,6 @@ Each source has its own data format. Below are three examples:
   "total_usd": "float",
   "line_items": "array",
   "source": "shopify"
-}
-```
-
-**Sapo POS Orders**
-```json
-{
-  "id": "int",
-  "code": "string",
-  "transaction_id": "string",
-  "customer": "object",
-  "line_items": "array",
-  "total_vnd": "int",
-  "status": "string",
-  "source": "sapo_pos"
-}
-```
-
-**Cart Tracking Events**
-```json
-{
-  "event_id": "string",
-  "event_type": "string",
-  "session_id": "string",
-  "customer_id": "int",
-  "product_id": "int",
-  "timestamp": "datetime",
-  "utm_source": "string",
-  "utm_campaign": "string"
 }
 ```
 

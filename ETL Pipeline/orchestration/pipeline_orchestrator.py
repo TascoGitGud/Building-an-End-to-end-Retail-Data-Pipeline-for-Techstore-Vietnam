@@ -175,7 +175,7 @@ class Pipeline_Orchestrator:
             #TRANSFORM
             # transform_fact_orders() calls fact_orders_shopify/online/sapo internally
             # so pass raw data directly — do NOT pre-transform to avoid double transformation
-            fact_orders = self.fact_transformer.transform_fact_orders(shopify_data_raw, online_orders_data_raw, sapo_data_raw)
+            fact_orders = self.fact_transformer.transform_fact_order(shopify_data_raw, online_orders_data_raw, sapo_data_raw)
 
             #Loader
             self.loader.load_dataframe(
@@ -210,13 +210,13 @@ class Pipeline_Orchestrator:
             sapo_data_raw = sapo.extract_file()
 
             #TRANSFORM
-            fact_shopify_orders = self.fact_transformer.fact_orders_shopify(shopify_data_raw)
+            fact_shopify_orders = self.fact_transformer.fact_order_shopify(shopify_data_raw)
             fact_shopify_order_items = self.fact_transformer.fact_order_items_shopify(fact_shopify_orders, shopify_data_raw)
             
-            fact_online_orders = self.fact_transformer.fact_orders_online(online_orders_data_raw)
+            fact_online_orders = self.fact_transformer.fact_order_online(online_orders_data_raw)
             fact_online_order_items = self.fact_transformer.fact_order_items_online(fact_online_orders, online_orders_data_raw)
 
-            fact_sapo_orders = self.fact_transformer.fact_orders_sapo(sapo_data_raw)
+            fact_sapo_orders = self.fact_transformer.fact_order_sapo(sapo_data_raw)
             fact_sapo_order_items = self.fact_transformer.fact_order_items_sapo(fact_sapo_orders, sapo_data_raw)
 
             # Union table

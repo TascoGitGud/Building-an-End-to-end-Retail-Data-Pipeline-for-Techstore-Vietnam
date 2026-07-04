@@ -27,7 +27,7 @@ _End-to-end Python ETL pipeline that ingests, cleans, and standardizes multi-cha
 4. [⚒ Main Process](#-main-process)
 5. [🗄 Data Model (Star Schema)](#-data-model-star-schema)
 6. [📊 BigQuery Output](#-bigquery-output)
-7. [📈 Power BI Demo](#-power-bi-demo)
+7. [📈 Power BI](#-power-bi)
 8. [🗂 Project Structure](#-project-structure)
 9. [🔎 Conclusion & Business Impact](#-conclusion--business-impact)
 10. [⚙ Setup Instructions](#-setup-instructions)
@@ -289,23 +289,15 @@ The screenshots below show real query results from BigQuery after the pipeline h
 
 ---
 
-## 📈 Power BI Demo
+## 📈 Power BI
 
-The three analytical views (`vw_customer_journey`, `vw_cashflow_daily`, `vw_payment_status`) are connected to Power BI via the native BigQuery connector.
+The three analytical views (`vw_customer_journey`, `vw_cashflow_daily`, `vw_payment_status`) are connected to Power BI via the native BigQuery connector for future business reporting.
 
 ### Data Model View in Power BI
 
 ![Power BI Model View](Images/PBImodelview.png)
 
 *Figure 3: The three views loaded into Power BI's model view.*
-
-### Sample Dashboard (Demo)
-
-![Power BI Dashboard Demo](Images/PBIdashboarddemo.png)
-
-*Figure 4: A quick demo dashboard pulling from the three views, charts and cards to verify that data flows through correctly from BigQuery to Power BI.*
-
->  This is not a full analytical dashboard; it is a functional check to confirm the data pipeline end-to-end.
 
 ---
 

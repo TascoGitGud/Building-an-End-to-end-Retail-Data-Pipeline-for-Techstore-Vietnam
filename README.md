@@ -129,6 +129,21 @@ Each data source has its own extractor class that knows where its files live. Al
 
 `PaymentExtractor` handles all four payment sources in one class. Mercury Bank is a special case - it returns two separate tables (`accounts` and `transactions`), while the other three return a single flat table each.
 
+<details>
+<summary><b>📄 View code — <code>Base_Extractor.extract_json_gz()</code> / <code>list_files()</code></b></summary>
+```python
+def extract_json_gz(self, blob_path: str):
+    blob = self.bucket.blob(blob_path)
+    compressed_data = blob.download_as_bytes()
+    decompressed_data = gzip.decompress(compressed_data)
+    return json.loads(decompressed_data.decode("utf-8"))
+ 
+def list_files(self, folder_name):
+    blobs = self.client.list_blobs(self.bucket, prefix=folder_name)
+    return [i.name for i in blobs if not i.name.endswith('/')] ```
+</details>
+
+
 ### Step 2: Transform - Cleaning and Shaping Data
 
 All common transformation logic lives in `BaseTransformer`, which both `DimTransformer` and `FactTransformer` inherit from. This includes:

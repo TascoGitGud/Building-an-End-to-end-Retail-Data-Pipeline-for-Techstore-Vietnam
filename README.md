@@ -188,6 +188,7 @@ def payment_mercury_extract(self):
 
 All common transformation logic lives in `Base_Transformer`, which both `Dim_Transformer` and `Fact_Transformer` inherit from:
 
+- **`to_date()`** - turns text date columns into proper datetime format; bad values become null instead of errors
 <details>
 <summary><b>📄 View code — <code>to_date()</code></b></summary>
   
@@ -204,6 +205,7 @@ def to_date(self, df, columns: list):
 
 </details>
 
+- **`convert_ns_to_us()`** - converts timestamp precision so BigQuery can accept it without errors
 <details>
 <summary><b>📄 View code - <code>convert_ns_to_us()</code></b></summary>
 
@@ -217,6 +219,7 @@ def convert_ns_to_us(self, df, date_formatted_column):
 
 </details>
 
+- **`create_date_key()`** - creates an integer date key like `20240315` for linking to the date dimension
 <details>
 <summary><b>📄 View code - <code>create_date_key()</code></b></summary>
 
@@ -231,7 +234,7 @@ def create_date_key(self, df, date_column, key_date='xxx_key_date'):
 
 </details>
 
-<details>
+- **`create_surrogate_key()`** - builds a unique ID by combining multiple columns 
 <summary><b>📄 View code - <code>create_surrogate_key()</code></b></summary>
 
 ```python
@@ -252,6 +255,7 @@ def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_na
 
 </details>
 
+- **`unflatten_list()`** - expands nested product arrays inside orders into individual rows
 <details>
 <summary><b>📄 View code - <code>unflatten_list()</code></b></summary>
 
@@ -270,6 +274,7 @@ def unflatten_list(self, df, list_col, col_to_keep):
 
 </details>
 
+- **`data_quality_check()`** - checks for nulls, flags duplicate rows with `is_deleted = 1`, validates date ranges, and detects amount outliers using IQR
 <details>
 <summary><b>📄 View code - <code>data_quality_check()</code></b></summary>
 
@@ -303,6 +308,7 @@ def data_quality_check(self, df, table_name, critical_null_columns=None,
 
 </details>
 
+- **`handle_missing_value()`** - fills specific null columns with safe defaults (e.g. guest `customer_id` → `-1`) 
 <details>
 <summary><b>📄 View code - <code>handle_missing_value()</code></b></summary>
 
@@ -323,9 +329,6 @@ def handle_missing_value(self, df, fill_cols: dict = {}):
 #### Dimension tables - built by `Dim_Transformer`
 
 - `dim_customer` - customer profile from Shopify; `customer_segment`, `first_order_date`, `last_order_date` start empty and get filled in later by the SQL step
-- `dim_product` - product catalogue from Shopify; `is_active` flag added
-- `dim_location` - store locations from Sapo POS; `location_type` set to `Offline Store`
-
 <details>
 <summary><b>📄 View code - <code>transform_dim_customer()</code></b></summary>
 
@@ -352,6 +355,7 @@ def transform_dim_customer(self, df):  # From Shopify data
 
 </details>
 
+- `dim_product` - product catalogue from Shopify; `is_active` flag added
 <details>
 <summary><b>📄 View code - <code>transform_dim_product()</code></b></summary>
 
@@ -371,7 +375,7 @@ def transform_dim_product(self, df):  # From Shopify data
 ```
 
 </details>
-
+- `dim_location` - store locations from Sapo POS; `location_type` set to `Offline Store`
 <details>
 <summary><b>📄 View code - <code>transform_dim_location()</code></b></summary>
 

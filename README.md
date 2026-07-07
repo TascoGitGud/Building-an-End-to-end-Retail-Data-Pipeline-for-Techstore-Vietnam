@@ -751,8 +751,14 @@ def orchestrator_run(self):
 
 *Figure 2: Star Schema*
 
+✔️ Dimension tables describe the "who", "what", "where", and "when". 
+
+✔️ Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.
+
+✔️ Analytical views combine multiple tables to support reporting and dashboarding.
+
 <details>
-<summary><strong>Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.</strong></summary>
+<summary><strong>📋 Show Dimension Tables</strong></summary>
 
 <br>
 
@@ -770,7 +776,7 @@ def orchestrator_run(self):
 <br>
 
 <details>
-<summary><strong>Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.</strong></summary>
+<summary><strong>📊 Show Fact Tables</strong></summary>
 
 <br>
 

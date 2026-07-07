@@ -125,14 +125,15 @@ Each source has its own data format. Below are example:
 
 This pipeline follows a straightforward Extract, Transform, Load pattern, with two extra pieces added on top: a SQL step that recalculates customer segments right after loading finishes, and an orchestration layer that runs everything in order and keeps one broken data source from taking down the entire run.
 
----
-
 ### 1️⃣ Extract - Reading Files from GCS
 
 Every table in this project starts as a `.json.gz` file sitting in a GCS bucket, one folder per source (`shopify/`, `sapo/`, `momo/`, `mercury/`, and so on). The job of this step is simple: connect to GCS, find the right files, unzip them, and load them into a Pandas DataFrame. Nothing gets cleaned or reshaped yet. Keeping this step this simple means that adding a new data source later only means writing one small class, nothing else in the pipeline has to change.
 
 All extractors inherit from a single `Base_Extractor` class that handles the GCS connection, file listing, and unzipping logic. Each specific extractor only needs to know where its own files live.
 
+<details>
+<summary>View code - Base_Extractor</summary>
+  
 ```python
 class Base_Extractor:
     def __init__(self, bucket_name: str):
@@ -165,6 +166,8 @@ class Base_Extractor:
             self.logger.error(f"Error listing files in folder '{folder_name}': {e}")
             raise e
 ```
+
+<details>
 
 A specific extractor, like `Shopify_Extractor`, only adds its own folder path and a bit of logic to handle whether each file contains a list of records or a single record:
 
@@ -526,7 +529,7 @@ This is really the layer that turns four separate modules into an actual working
 
 Dimension tables describe the "who", "what", "where", and "when". Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.
 
-### Dimension Tables
+### 1️⃣ Dimension Tables
 
 | Table | Source | Partition | Key Column | What It Contains |
 |---|---|---|---|---|
@@ -537,7 +540,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 
 > `dim_staff` was part of the original scope but **not built** - Sapo POS raw data does not include staff information.
 
-### Fact Tables
+### 2️⃣ Fact Tables
 
 | Table | Sources | Partition | Cluster | Primary Key | What It Records |
 |---|---|---|---|---|---|
@@ -547,7 +550,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 | `fact_cart_events` | `Cart Tracking` | `event_date_key` | `customer_id`, `session_id`, `event_type` | `event_key` | User actions on site. |
 | `fact_bank_transactions` | `Mercury Bank` | `transaction_date_key` | - | `transaction_key` | Bank-level inflows and outflows. |
 
-### Analytical Views
+### 3️⃣ Analytical Views
 
 Three views sit on top of the fact tables and are ready to query directly from Power BI:
 

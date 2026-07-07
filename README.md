@@ -579,7 +579,72 @@ The screenshots below show real query results from BigQuery after the pipeline h
 
 `vw_cashflow_daily` brings together sales, payments, and bank records into one row per day. Finance can check whether revenue was actually collected without joining tables manually.
 
-
+<details>
+<summary><b>📄 View Query</b></summary>
+  
+```sql
+CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_cashflow_daily` AS
+WITH sales AS (
+  SELECT
+    order_date_key AS date_key,
+    SUM(total_vnd) AS sales_revenue_vnd,
+    COUNT(DISTINCT order_key) AS total_orders
+  FROM `unigappython.techstore_analytics.fact_orders`
+  WHERE status NOT IN ('cancelled', 'refunded')
+  GROUP BY order_date_key
+),
+ 
+payments AS (
+  SELECT
+    payment_date_key AS date_key,
+    SUM(IF(payment_status = 'success', amount_vnd, 0)) AS payment_received_vnd,
+    SUM(IF(payment_status = 'refunded', amount_vnd, 0)) AS payment_refunded_vnd,
+    COUNT(DISTINCT transaction_id) AS total_payment_transactions
+  FROM `unigappython.techstore_analytics.fact_payments`
+  GROUP BY payment_date_key
+),
+ 
+bank AS (
+  SELECT
+    transaction_date_key AS date_key,
+    SUM(IF(transaction_type = 'inflow' AND status = 'completed', amount_vnd, 0)) AS bank_inflow_vnd,
+    SUM(IF(transaction_type = 'outflow' AND status = 'completed', amount_vnd, 0)) AS bank_outflow_vnd
+  FROM `unigappython.techstore_analytics.fact_bank_transactions`
+  GROUP BY transaction_date_key
+),
+ 
+all_dates AS (
+  SELECT date_key FROM sales
+  UNION DISTINCT
+  SELECT date_key FROM payments
+  UNION DISTINCT
+  SELECT date_key FROM bank
+)
+ 
+SELECT
+  d.date_key,
+  dd.year,
+  dd.month,
+  dd.month_name,
+  dd.day_name,
+  dd.is_weekend,
+  IFNULL(s.sales_revenue_vnd, 0) AS sales_revenue_vnd,
+  IFNULL(s.total_orders, 0) AS total_orders,
+  IFNULL(p.payment_received_vnd, 0) AS payment_received_vnd,
+  IFNULL(p.payment_refunded_vnd, 0) AS payment_refunded_vnd,
+  IFNULL(p.total_payment_transactions, 0) AS total_payment_transactions,
+  IFNULL(b.bank_inflow_vnd, 0) AS bank_inflow_vnd,
+  IFNULL(b.bank_outflow_vnd, 0) AS bank_outflow_vnd,
+  (IFNULL(b.bank_inflow_vnd, 0) - IFNULL(b.bank_outflow_vnd, 0)) AS net_bank_cashflow_vnd,
+  (IFNULL(p.payment_received_vnd, 0) - IFNULL(p.payment_refunded_vnd, 0)
+    + IFNULL(b.bank_inflow_vnd, 0) - IFNULL(b.bank_outflow_vnd, 0)) AS net_cashflow_vnd
+FROM all_dates d
+LEFT JOIN sales s ON d.date_key = s.date_key
+LEFT JOIN payments p ON d.date_key = p.date_key
+LEFT JOIN bank b ON d.date_key = b.date_key
+LEFT JOIN `unigappython.techstore_analytics.dim_date` dd ON d.date_key = dd.date_key
+ORDER BY d.date_key;
+```
 
 ### `vw_customer_journey` - Touchpoint Sequence Per Customer
 
@@ -671,12 +736,68 @@ ORDER BY customer_id, touchpoint_seq;
  
 </details>
 
-
 ### `vw_payment_status` - Payment Health Per Order
 
 ![vw_payment_status](Images/vw_payment_status.png)
 
 `vw_payment_status` joins orders and payments to classify every order's payment health and flag overdue or partially paid orders.
+<details>
+<summary><b>📄 View SQL — vw_payment_status</b></summary>
+  
+```sql
+CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_payment_status` AS
+WITH payment_agg AS (
+  SELECT
+    order_id,
+    SUM(IF(payment_status = 'success', amount_vnd, 0)) AS total_paid_vnd,
+    MIN(IF(payment_status = 'success', payment_date, NULL)) AS first_success_payment_date,
+    MAX(payment_date) AS last_payment_date,
+    ARRAY_AGG(payment_gateway ORDER BY payment_date DESC LIMIT 1)[OFFSET(0)] AS last_payment_gateway,
+    ARRAY_AGG(payment_method ORDER BY payment_date DESC LIMIT 1)[OFFSET(0)] AS last_payment_method
+  FROM `unigappython.techstore_analytics.fact_payments`
+  GROUP BY order_id
+)
+ 
+SELECT
+  o.order_key,
+  o.order_id,
+  o.transaction_id,
+  o.customer_id,
+  o.order_date,
+  o.channel,
+  o.status AS order_status,
+  o.payment_status AS order_payment_status,
+  o.total_vnd AS order_total_vnd,
+  IFNULL(p.total_paid_vnd, 0) AS total_paid_vnd,
+  (o.total_vnd - IFNULL(p.total_paid_vnd, 0)) AS outstanding_amount_vnd,
+  p.first_success_payment_date,
+  p.last_payment_date,
+  p.last_payment_gateway,
+  p.last_payment_method,
+  TIMESTAMP_DIFF(p.first_success_payment_date, o.order_date, HOUR) AS payment_delay_hours,
+ 
+  CASE
+    WHEN IFNULL(p.total_paid_vnd, 0) >= o.total_vnd
+      THEN 'Paid'
+    WHEN IFNULL(p.total_paid_vnd, 0) = 0
+         AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), o.order_date, HOUR) <= 24
+      THEN 'Pending'
+    WHEN IFNULL(p.total_paid_vnd, 0) = 0
+         AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), o.order_date, HOUR) > 24
+      THEN 'Overdue'
+    WHEN IFNULL(p.total_paid_vnd, 0) > 0
+         AND IFNULL(p.total_paid_vnd, 0) < o.total_vnd
+      THEN 'Partially Paid'
+    WHEN o.status = 'cancelled'
+      THEN 'Cancelled'
+    ELSE 'Unknown'
+  END AS payment_status_category
+ 
+FROM `unigappython.techstore_analytics.fact_orders` o
+LEFT JOIN payment_agg p
+  ON o.order_id = p.order_id
+ORDER BY o.order_date DESC;
+```
 
 ---
 

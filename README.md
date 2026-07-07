@@ -553,9 +553,9 @@ Three views sit on top of the fact tables and are ready to query directly from P
 
 | View | Built From | What It Answers |
 |---|---|---|
-| `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase?. |
-| `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day?. |
-| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid?. |
+| `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase? |
+| `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day? |
+| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid? |
 
 tôi muốn các bảng trong phần này dc cho vào kiểu ngta muốn xem thêm ngta bấm vào để xem dc các bảng
 
@@ -736,6 +736,7 @@ SELECT
 FROM ranked
 ORDER BY customer_id, touchpoint_seq;
 ```
+Browsing events from `fact_cart_events` and purchases from `fact_orders` are unioned into a single timeline per customer, then `STRING_AGG` builds a running, human-readable sequence like `view_item > add_to_cart > purchase` for every touchpoint along the way.
 
 </details>
 
@@ -745,7 +746,7 @@ ORDER BY customer_id, touchpoint_seq;
 
 `vw_payment_status` joins orders and payments to classify every order's payment health and flag overdue or partially paid orders.
 <details>
-<summary><b>📄 View SQL — vw_payment_status</b></summary>
+<summary><b>📄 View Query</b></summary>
   
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_payment_status` AS
@@ -801,7 +802,11 @@ LEFT JOIN payment_agg p
   ON o.order_id = p.order_id
 ORDER BY o.order_date DESC;
 ```
+
+Every order is classified into one of six payment health categories (`Paid`, `Pending`, `Overdue`, `Partially Paid`, `Cancelled`, `Unknown`) based on how much has been paid so far and how much time has passed since the order was placed, so Finance can filter straight to the orders that need attention.
+
 </details>
+
 ---
 
 ## 📈 Power BI

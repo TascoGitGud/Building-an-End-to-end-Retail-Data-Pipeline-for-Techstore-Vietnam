@@ -128,7 +128,7 @@ Each source has its own data format. Below are example:
 Each data source has its own extractor class that knows where its files live. All extractors share the same base logic (connect to GCS, list files, unzip and read `.json.gz`) through a `Base_Extractor` class - so there's no repeated code across 5 different sources.
 
 <details>
-<summary><b>📄 View code — <code>Base_Extractor.extract_json_gz()</code> / <code>list_files()</code></b></summary>
+<summary><b>📄 View code - <code>Base_Extractor.extract_json_gz()</code> / <code>list_files()</code></b></summary>
 
 ```python
 def extract_json_gz(self, blob_path: str):
@@ -145,7 +145,7 @@ def list_files(self, folder_name):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>Shopify_Extractor.extract_file()</code> (inherits from Base_Extractor)</b></summary>
+<summary><b>📄 View code - <code>Shopify_Extractor.extract_file()</code> (inherits from Base_Extractor)</b></summary>
 
 ```python
 class Shopify_Extractor(Base_Extractor):
@@ -163,7 +163,7 @@ class Shopify_Extractor(Base_Extractor):
 `Payment_Extractor` handles all four payment gateways in one class. Mercury Bank is a special case - it returns two separate tables (`accounts` and `transactions`), while ZaloPay, MoMo, and PayPal each return a single flat table.
 
 <details>
-<summary><b>📄 View code — <code>Payment_Extractor.payment_mercury_extract()</code></b></summary>
+<summary><b>📄 View code - <code>Payment_Extractor.payment_mercury_extract()</code></b></summary>
 
 ```python
 def payment_mercury_extract(self):
@@ -189,7 +189,7 @@ def payment_mercury_extract(self):
 All common transformation logic lives in `Base_Transformer`, which both `Dim_Transformer` and `Fact_Transformer` inherit from:
 
 <details>
-<summary><b>📄 View code — <code>to_date()</code></b></summary>
+<summary><b>-<code>to_date()<code>- turns text date columns into proper datetime format; bad values become null instead of errors</b></summary>
 
 ```python
 def to_date(self, df, columns: list):
@@ -205,7 +205,7 @@ def to_date(self, df, columns: list):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>convert_ns_to_us()</code></b></summary>
+<summary><b>📄 View code - <code>convert_ns_to_us()</code></b></summary>
 
 ```python
 def convert_ns_to_us(self, df, date_formatted_column):
@@ -218,7 +218,7 @@ def convert_ns_to_us(self, df, date_formatted_column):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>create_date_key()</code></b></summary>
+<summary><b>📄 View code - <code>create_date_key()</code></b></summary>
 
 ```python
 def create_date_key(self, df, date_column, key_date='xxx_key_date'):
@@ -232,7 +232,7 @@ def create_date_key(self, df, date_column, key_date='xxx_key_date'):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>create_surrogate_key()</code></b></summary>
+<summary><b>📄 View code - <code>create_surrogate_key()</code></b></summary>
 
 ```python
 def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_name"):
@@ -253,7 +253,7 @@ def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_na
 </details>
 
 <details>
-<summary><b>📄 View code — <code>unflatten_list()</code></b></summary>
+<summary><b>📄 View code - <code>unflatten_list()</code></b></summary>
 
 ```python
 def unflatten_list(self, df, list_col, col_to_keep):
@@ -271,7 +271,7 @@ def unflatten_list(self, df, list_col, col_to_keep):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>data_quality_check()</code></b></summary>
+<summary><b>📄 View code - <code>data_quality_check()</code></b></summary>
 
 ```python
 def data_quality_check(self, df, table_name, critical_null_columns=None,
@@ -304,7 +304,7 @@ def data_quality_check(self, df, table_name, critical_null_columns=None,
 </details>
 
 <details>
-<summary><b>📄 View code — <code>handle_missing_value()</code></b></summary>
+<summary><b>📄 View code - <code>handle_missing_value()</code></b></summary>
 
 ```python
 def handle_missing_value(self, df, fill_cols: dict = {}):
@@ -320,14 +320,14 @@ def handle_missing_value(self, df, fill_cols: dict = {}):
 
 </details>
 
-#### Dimension tables — built by `Dim_Transformer`
+#### Dimension tables - built by `Dim_Transformer`
 
 - `dim_customer` - customer profile from Shopify; `customer_segment`, `first_order_date`, `last_order_date` start empty and get filled in later by the SQL step
 - `dim_product` - product catalogue from Shopify; `is_active` flag added
 - `dim_location` - store locations from Sapo POS; `location_type` set to `Offline Store`
 
 <details>
-<summary><b>📄 View code — <code>transform_dim_customer()</code></b></summary>
+<summary><b>📄 View code - <code>transform_dim_customer()</code></b></summary>
 
 ```python
 def transform_dim_customer(self, df):  # From Shopify data
@@ -353,7 +353,7 @@ def transform_dim_customer(self, df):  # From Shopify data
 </details>
 
 <details>
-<summary><b>📄 View code — <code>transform_dim_product()</code></b></summary>
+<summary><b>📄 View code - <code>transform_dim_product()</code></b></summary>
 
 ```python
 def transform_dim_product(self, df):  # From Shopify data
@@ -373,7 +373,7 @@ def transform_dim_product(self, df):  # From Shopify data
 </details>
 
 <details>
-<summary><b>📄 View code — <code>transform_dim_location()</code></b></summary>
+<summary><b>📄 View code - <code>transform_dim_location()</code></b></summary>
 
 ```python
 def transform_dim_location(self, df):  # From Sapo data (offline POS)
@@ -392,7 +392,7 @@ def transform_dim_location(self, df):  # From Sapo data (offline POS)
 
 </details>
 
-#### Fact tables — built by `Fact_Transformer`
+#### Fact tables - built by `Fact_Transformer`
 
 - `fact_orders` - combines orders from Shopify, Online Orders, and Sapo POS. Each source is cleaned separately, then all three are stacked together using `pd.concat`
 - `fact_order_items` - explodes the `line_items` array inside each order into individual product rows, then stacks all channels together
@@ -401,7 +401,7 @@ def transform_dim_location(self, df):  # From Sapo data (offline POS)
 - `fact_bank_transactions` - processes Mercury Bank records; negative amounts (outflows) are allowed and noted
 
 <details>
-<summary><b>📄 View code — <code>transform_fact_order()</code> (combines 3 channels)</b></summary>
+<summary><b>📄 View code - <code>transform_fact_order()</code> (combines 3 channels)</b></summary>
 
 ```python
 def transform_fact_order(self, df_shopify, df_online, df_sapo):
@@ -427,7 +427,7 @@ def transform_fact_order(self, df_shopify, df_online, df_sapo):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>fact_order_shopify()</code> (one of the 3 per-channel sub-transforms)</b></summary>
+<summary><b>📄 View code - <code>fact_order_shopify()</code> (one of the 3 per-channel sub-transforms)</b></summary>
 
 ```python
 def fact_order_shopify(self, df):
@@ -455,7 +455,7 @@ def fact_order_shopify(self, df):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>fact_order_items_shopify()</code> (exploding <code>line_items</code>)</b></summary>
+<summary><b>📄 View code - <code>fact_order_items_shopify()</code> (exploding <code>line_items</code>)</b></summary>
 
 ```python
 def fact_order_items_shopify(self, df, original_source):
@@ -478,7 +478,7 @@ def fact_order_items_shopify(self, df, original_source):
 </details>
 
 <details>
-<summary><b>📄 View code — payment-gateway success-code mapping (<code>fact_payment_zalopay</code> / <code>fact_payment_momo</code>)</b></summary>
+<summary><b>📄 View code - payment-gateway success-code mapping (<code>fact_payment_zalopay</code> / <code>fact_payment_momo</code>)</b></summary>
 
 ```python
 # ZaloPay: return_code == 1 → SUCCESS
@@ -495,7 +495,7 @@ fact_payment_momo['payment_status'] = np.where(
 </details>
 
 <details>
-<summary><b>📄 View code — <code>transform_fact_cart_events()</code></b></summary>
+<summary><b>📄 View code - <code>transform_fact_cart_events()</code></b></summary>
 
 ```python
 def transform_fact_cart_events(self, df):
@@ -523,7 +523,7 @@ def transform_fact_cart_events(self, df):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>transform_fact_bank_transactions()</code></b></summary>
+<summary><b>📄 View code - <code>transform_fact_bank_transactions()</code></b></summary>
 
 ```python
 def transform_fact_bank_transactions(self, df):
@@ -560,7 +560,7 @@ def transform_fact_bank_transactions(self, df):
 Each table is also **clustered** to make queries faster (e.g. `fact_orders` clusters on `customer_id` and `channel` so filtering by customer or channel is cheap). All tables use `WRITE_TRUNCATE` - the pipeline does a full reload each run.
 
 <details>
-<summary><b>📄 View code — auto-detecting partition type in <code>load_dataframe()</code></b></summary>
+<summary><b>📄 View code - auto-detecting partition type in <code>load_dataframe()</code></b></summary>
 
 ```python
 def load_dataframe(self, df, dataset_id, bq_table_name,
@@ -594,7 +594,7 @@ def load_dataframe(self, df, dataset_id, bq_table_name,
 </details>
 
 <details>
-<summary><b>📄 View code — example call from the orchestrator</b></summary>
+<summary><b>📄 View code - example call from the orchestrator</b></summary>
 
 ```python
 self.loader.load_dataframe(
@@ -622,7 +622,7 @@ After all tables are loaded, the pipeline runs a BigQuery `MERGE` statement that
 5. Updates `dim_customer` in place - existing rows are overwritten with the new values
 
 <details>
-<summary><b>📄 View code — aggregating order history per customer</b></summary>
+<summary><b>📄 View code - aggregating order history per customer</b></summary>
 
 ```sql
 aggregate_value AS (
@@ -642,7 +642,7 @@ aggregate_value AS (
 </details>
 
 <details>
-<summary><b>📄 View code — RFM scoring with <code>NTILE(5)</code></b></summary>
+<summary><b>📄 View code - RFM scoring with <code>NTILE(5)</code></b></summary>
 
 ```sql
 rfm_score AS (
@@ -663,7 +663,7 @@ rfm_score AS (
 </details>
 
 <details>
-<summary><b>📄 View code — mapping RFM cell → segment name</b></summary>
+<summary><b>📄 View code - mapping RFM cell → segment name</b></summary>
 
 ```sql
 CASE
@@ -691,7 +691,7 @@ check_dataset → process_dimensions() → process_facts() → execute_sql_query
 Each table has its own `try/except` block - if one source fails, the rest of the pipeline keeps running and logs the failure instead of crashing silently. Every step is logged to both the console and a log file via `setup_logger()`.
 
 <details>
-<summary><b>📄 View code — isolated try/except per table in <code>process_dimensions()</code></b></summary>
+<summary><b>📄 View code - isolated try/except per table in <code>process_dimensions()</code></b></summary>
 
 ```python
 def process_dimensions(self):
@@ -721,7 +721,7 @@ def process_dimensions(self):
 </details>
 
 <details>
-<summary><b>📄 View code — <code>orchestrator_run()</code>, the single entry point</b></summary>
+<summary><b>📄 View code - <code>orchestrator_run()</code>, the single entry point</b></summary>
 
 ```python
 def orchestrator_run(self):

@@ -751,38 +751,53 @@ def orchestrator_run(self):
 
 *Figure 2: Star Schema*
 
-Dimension tables describe the "who", "what", "where", and "when". Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.
+<details>
+<summary><strong>Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.</strong></summary>
 
-### Dimension Tables
+<br>
 
 | Table | Source | Partition | Key Column | What It Contains |
 |---|---|---|---|---|
-| `dim_customer` | `Shopify` | `created_at` | `customer_id` | Customer profile + RFM segment, lifetime value, etc.. Updated automatically after each pipeline run. |
-| `dim_product` | `Shopify` | - | `product_id` | Product name, SKU, category, etc. |
-| `dim_location` | `Sapo POS` | - | `location_id` | Store name, code, city, address, phone. `location_type` = `Offline Store`. |
-| `dim_date` | - | - | `date_key` | Date attributes: year, quarter, month, etc. |
+| `dim_customer` | Shopify | `created_at` | `customer_id` | Customer profile + RFM segment, lifetime value, etc. Updated automatically after each pipeline run. |
+| `dim_product` | Shopify | - | `product_id` | Product name, SKU, category, etc. |
+| `dim_location` | Sapo POS | - | `location_id` | Store name, code, city, address, phone. `location_type = Offline Store`. |
+| `dim_date` | - | - | `date_key` | Date attributes: year, quarter, month, week, etc. |
 
-> `dim_staff` was part of the original scope but **not built** - Sapo POS raw data does not include staff information.
+> **Note:** `dim_staff` was part of the original scope but was **not implemented** because Sapo POS raw data does not contain staff information.
 
-### Fact Tables
+</details>
+
+<br>
+
+<details>
+<summary><strong>Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.</strong></summary>
+
+<br>
 
 | Table | Sources | Partition | Cluster | Primary Key | What It Records |
 |---|---|---|---|---|---|
-| `fact_orders` | `Shopify` · `Online Orders` · `Sapo POS` | `order_date_key` | `customer_id`, `channel` | `order_key` | Every order across all channels. |
-| `fact_order_items` | `Shopify` · `Online Orders` · `Sapo POS` | `order_date_key` | `product_id` | `order_item_key` | Each product line inside an order. |
-| `fact_payments` | `ZaloPay` · `MoMo` · `PayPal` | `payment_date_key` | `customer_id`, `payment_gateway` | `payment_key` | Payment transactions from e-wallet gateways. |
-| `fact_cart_events` | `Cart Tracking` | `event_date_key` | `customer_id`, `session_id`, `event_type` | `event_key` | User actions on site. |
-| `fact_bank_transactions` | `Mercury Bank` | `transaction_date_key` | - | `transaction_key` | Bank-level inflows and outflows. |
+| `fact_orders` | Shopify · Online Orders · Sapo POS | `order_date_key` | `customer_id`, `channel` | `order_key` | Every order across all sales channels. |
+| `fact_order_items` | Shopify · Online Orders · Sapo POS | `order_date_key` | `product_id` | `order_item_key` | Individual products within each order. |
+| `fact_payments` | ZaloPay · MoMo · PayPal | `payment_date_key` | `customer_id`, `payment_gateway` | `payment_key` | Payment transactions from all e-wallet gateways. |
+| `fact_cart_events` | Cart Tracking | `event_date_key` | `customer_id`, `session_id`, `event_type` | `event_key` | Customer browsing and shopping cart activities. |
+| `fact_bank_transactions` | Mercury Bank | `transaction_date_key` | - | `transaction_key` | Bank-level cash inflows and outflows. |
 
-### Analytical Views
+</details>
 
-Three views sit on top of the fact tables and are ready to query directly from Power BI:
+<br>
+
+<details>
+<summary><strong>📈 Show Analytical Views</strong></summary>
+
+<br>
 
 | View | Built From | What It Answers |
 |---|---|---|
-| `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase?. |
-| `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day?. |
-| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid?. |
+| `vw_customer_journey` | `fact_cart_events` + `fact_orders` | How did each customer move from first interaction to purchase? |
+| `vw_cashflow_daily` | `fact_orders` + `fact_payments` + `fact_bank_transactions` + `dim_date` | What came in and went out each day? |
+| `vw_payment_status` | `fact_orders` + `fact_payments` | Is each order actually paid? |
+
+</details>
 
 > For full column details on all tables, see the 📄 [Data Dictionary](data_dictionary.md)
 

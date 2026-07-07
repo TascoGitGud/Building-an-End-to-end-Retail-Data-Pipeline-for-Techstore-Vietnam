@@ -773,8 +773,6 @@ def orchestrator_run(self):
 
 </details>
 
-<br>
-
 <details>
 <summary><strong>📊 Show Fact Tables</strong></summary>
 
@@ -789,8 +787,6 @@ def orchestrator_run(self):
 | `fact_bank_transactions` | Mercury Bank | `transaction_date_key` | - | `transaction_key` | Bank-level cash inflows and outflows. |
 
 </details>
-
-<br>
 
 <details>
 <summary><strong>📈 Show Analytical Views</strong></summary>

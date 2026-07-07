@@ -28,8 +28,8 @@ _End-to-end Python ETL pipeline that ingests, cleans, and standardizes multi-cha
 5. [🗄 Data Model (Star Schema)](#-data-model-star-schema)
 6. [📊 BigQuery Output](#-bigquery-output)
 7. [📈 Power BI](#-power-bi)
-8. [🗂 Project Structure](#-project-structure)
-9. [🔎 Conclusion & Business Impact](#-conclusion--business-impact)
+8. [🔎 Conclusion & Business Impact](#-conclusion--business-impact)
+9. [🗂 Project Structure](#-project-structure)
 10. [⚙ Setup Instructions](#-setup-instructions)
 
 ---
@@ -830,6 +830,22 @@ The three analytical views (`vw_customer_journey`, `vw_cashflow_daily`, `vw_paym
 
 ---
 
+## 🔎 Conclusion & Business Impact
+
+📍 **Key Outcomes:**
+
+✔️ **One place for all data** - sales from Shopify, Sapo POS, and online channels; payments from MoMo, ZaloPay, PayPal, and Mercury; and user behaviour from cart tracking - all cleaned and in one BigQuery dataset.
+
+✔️ **Faster reporting** - the analytics team gets clean, structured tables they can query directly. No more manual exports or fixing mismatched formats before each report.
+
+✔️ **Daily cashflow visibility** - Finance can check whether money was actually received each day with a single query against `vw_cashflow_daily`.
+
+✔️ **Always up-to-date customer segments** - Marketing gets fresh RFM segments automatically after every pipeline run, without a separate tool or manual step.
+
+✔️ **Easy to extend** - adding a new data source only means writing a new extractor class. Everything else (cleaning logic, loader, orchestrator) stays the same.
+
+---
+
 ## 🗂 Project Structure
 
 ```
@@ -872,22 +888,6 @@ ETL Pipeline/
 ├── main.py                           # Entry point - run this to start the pipeline
 └── requirement.txt                   # Python dependencies
 ```
-
----
-
-## 🔎 Conclusion & Business Impact
-
-📍 **Key Outcomes:**
-
-✔️ **One place for all data** - sales from Shopify, Sapo POS, and online channels; payments from MoMo, ZaloPay, PayPal, and Mercury; and user behaviour from cart tracking - all cleaned and in one BigQuery dataset.
-
-✔️ **Faster reporting** - the analytics team gets clean, structured tables they can query directly. No more manual exports or fixing mismatched formats before each report.
-
-✔️ **Daily cashflow visibility** - Finance can check whether money was actually received each day with a single query against `vw_cashflow_daily`.
-
-✔️ **Always up-to-date customer segments** - Marketing gets fresh RFM segments automatically after every pipeline run, without a separate tool or manual step.
-
-✔️ **Easy to extend** - adding a new data source only means writing a new extractor class. Everything else (cleaning logic, loader, orchestrator) stays the same.
 
 ---
 

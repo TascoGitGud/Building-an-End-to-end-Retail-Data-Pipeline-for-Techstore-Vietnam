@@ -645,6 +645,7 @@ LEFT JOIN bank b ON d.date_key = b.date_key
 LEFT JOIN `unigappython.techstore_analytics.dim_date` dd ON d.date_key = dd.date_key
 ORDER BY d.date_key;
 ```
+</details>
 
 ### `vw_customer_journey` - Touchpoint Sequence Per Customer
 
@@ -732,8 +733,7 @@ SELECT
 FROM ranked
 ORDER BY customer_id, touchpoint_seq;
 ```
- 
- 
+
 </details>
 
 ### `vw_payment_status` - Payment Health Per Order
@@ -798,7 +798,7 @@ LEFT JOIN payment_agg p
   ON o.order_id = p.order_id
 ORDER BY o.order_date DESC;
 ```
-
+</details>
 ---
 
 ## 📈 Power BI

@@ -123,513 +123,212 @@ Each source has its own data format. Below are example:
 
 ## ⚒ Main Process
 
-### Step 1: Extract - Reading files from GCS
+The pipeline follows a classic **Extract → Transform → Load** flow, extended with a post-load SQL step for customer analytics and a top-level orchestration layer that ties everything together. Each stage is implemented as its own Python module, which keeps the codebase easy to extend, test, and reason about independently.
 
-Each data source has its own extractor class that knows where its files live. All extractors share the same base logic (connect to GCS, list files, unzip and read `.json.gz`) through a `Base_Extractor` class - so there's no repeated code across 5 different sources.
-
-<details>
-<summary><b>📄 View code - <code>Base_Extractor.extract_json_gz()</code> / <code>list_files()</code></b></summary>
-
-```python
-def extract_json_gz(self, blob_path: str):
-    blob = self.bucket.blob(blob_path)
-    compressed_data = blob.download_as_bytes()
-    decompressed_data = gzip.decompress(compressed_data)
-    return json.loads(decompressed_data.decode("utf-8"))
-
-def list_files(self, folder_name):
-    blobs = self.client.list_blobs(self.bucket, prefix=folder_name)
-    return [i.name for i in blobs if not i.name.endswith('/')]
 ```
-
-</details>
-
-<details>
-<summary><b>📄 View code - <code>Shopify_Extractor.extract_file()</code> (inherits from Base_Extractor)</b></summary>
-
-```python
-class Shopify_Extractor(Base_Extractor):
-    def extract_file(self):
-        list_files_extract = self.list_files('shopify/')
-        data_extract = []
-        for i in list_files_extract:
-            data = self.extract_json_gz(i)
-            data_extract.extend(data if isinstance(data, list) else [data])
-        return pd.DataFrame(data_extract)
+GCS (.json.gz) → Extract → Transform → Load → BigQuery
+                                                   │
+                                                   ▼
+                                     SQL Update (RFM Segmentation)
+                                                   │
+                                                   ▼
+                                            Power BI Dashboards
 ```
-
-</details>
-
-`Payment_Extractor` handles all four payment gateways in one class. Mercury Bank is a special case - it returns two separate tables (`accounts` and `transactions`), while ZaloPay, MoMo, and PayPal each return a single flat table.
-
-<details>
-<summary><b>📄 View code - <code>Payment_Extractor.payment_mercury_extract()</code></b></summary>
-
-```python
-def payment_mercury_extract(self):
-    "Create extract function for payment gateway: mercury"
-    list_files_extract = self.list_files('mercury/')
-
-    data_extract = {}  # Dict because Mercury returns 2 different data structures
-    for i in list_files_extract:
-        data = self.extract_json_gz(i)
-        df = pd.DataFrame(data)
-        clean_key = i.split('/')[-1].replace('.json.gz', '')
-        data_extract[clean_key] = df
-
-    return data_extract  # {'accounts': df, 'transactions': df}
-```
-
-</details>
 
 ---
 
-### Step 2: Transform - Cleaning and Shaping Data
+### Step 1 — Extract: Pulling Raw Data from GCS
 
-All common transformation logic lives in `Base_Transformer`, which both `Dim_Transformer` and `Fact_Transformer` inherit from:
+**Purpose.** Every downstream table starts as a raw `.json.gz` file sitting in a GCS bucket, one folder per source (`shopify/`, `sapo/`, `momo/`, `mercury/`, etc.). The extraction layer's only job is to reliably pull that raw data into memory as a Pandas DataFrame — no cleaning, no business logic. Keeping extraction "dumb" makes it easy to swap or add sources without touching anything downstream.
 
-**`to_date()`** - turns text date columns into proper datetime format; bad values become null instead of errors
-<details>
-<summary><b>📄 View code — <code>to_date()</code></b></summary>
-  
+**How it's done.** All extractors inherit from a single `Base_Extractor` class, which centralizes the GCS connection, file listing, and `.json.gz` decompression logic. Each concrete extractor (`Shopify_Extractor`, `Sapo_Extractor`, `Payment_Extractor`, etc.) only needs to know *where its files live* — everything else is reused.
+
 ```python
-def to_date(self, df, columns: list):
-    """Converts text date columns to datetime; invalid values become NaT."""
-    for i in columns:
-        if i in df.columns:
-            df[i] = pd.to_datetime(df[i], errors='coerce')
-        else:
-            self.logger.warning(f"Column '{i}' not found in DataFrame.")
-    return df
+class Base_Extractor:
+    """Shared GCS access logic used by every source-specific extractor."""
+
+    def __init__(self, bucket_name: str):
+        self.client = storage.Client()
+        self.bucket = self.client.bucket(bucket_name)
+
+    def list_files(self, folder_name: str) -> list:
+        blobs = self.client.list_blobs(self.bucket, prefix=folder_name)
+        return [b.name for b in blobs if not b.name.endswith('/')]
+
+    def extract_json_gz(self, blob_path: str):
+        raw_bytes = self.bucket.blob(blob_path).download_as_bytes()
+        decompressed = gzip.decompress(raw_bytes)
+        return json.loads(decompressed.decode("utf-8"))
 ```
 
-</details>
-
-**`convert_ns_to_us()`** - converts timestamp precision so BigQuery can accept it without errors
-<details>
-<summary><b>📄 View code - <code>convert_ns_to_us()</code></b></summary>
+A concrete extractor becomes a thin, declarative wrapper around this base class:
 
 ```python
-def convert_ns_to_us(self, df, date_formatted_column):
-    """Converts timestamp precision from ns to us so BigQuery accepts it."""
-    if date_formatted_column in df.columns:
-        df[date_formatted_column] = df[date_formatted_column].astype('datetime64[us]')
-    return df
+class Shopify_Extractor(Base_Extractor):
+    def extract_file(self) -> pd.DataFrame:
+        records = []
+        for blob_path in self.list_files('shopify/'):
+            data = self.extract_json_gz(blob_path)
+            records.extend(data if isinstance(data, list) else [data])
+        return pd.DataFrame(records)
 ```
 
-</details>
-
-**`create_date_key()`** - creates an integer date key like `20240315` for linking to the date dimension
-<details>
-<summary><b>📄 View code - <code>create_date_key()</code></b></summary>
+Payment data is the one exception worth calling out: `Payment_Extractor` serves four different gateways from a single class, and Mercury Bank uniquely returns **two** related tables (`accounts` and `transactions`) instead of one, since bank data needs both to be useful:
 
 ```python
-def create_date_key(self, df, date_column, key_date='xxx_key_date'):
-    """Creates an integer date key (e.g. 20240315) from a datetime column."""
-    if date_column in df.columns:
-        df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
-        df[key_date] = df[date_column].dt.strftime('%Y%m%d').astype(int)
-    return df
+def payment_mercury_extract(self) -> dict:
+    """Mercury returns 2 linked tables, so the result is a dict, not a single DataFrame."""
+    result = {}
+    for blob_path in self.list_files('mercury/'):
+        df = pd.DataFrame(self.extract_json_gz(blob_path))
+        table_name = blob_path.split('/')[-1].replace('.json.gz', '')
+        result[table_name] = df
+    return result  # {'accounts': df, 'transactions': df}
 ```
 
-</details>
+**How it connects to the pipeline.** The orchestrator calls each extractor at the start of `process_dimensions()` and `process_facts()`, and passes the resulting raw DataFrame straight into the corresponding transformer — extraction output *is* transformation input, with no intermediate staging layer.
 
-**`create_surrogate_key()`** - builds a unique ID by combining multiple columns 
-<summary><b>📄 View code - <code>create_surrogate_key()</code></b></summary>
+---
+
+### Step 2 — Transform: Cleaning, Standardizing, and Reshaping
+
+**Purpose.** This is where the actual data engineering happens: reconciling inconsistent schemas across 8 sources, fixing types, generating warehouse-ready keys, and enforcing a consistent shape so that data from Shopify, Sapo POS, and Online Orders can safely live in the same fact table.
+
+**How it's done.** Shared, reusable logic lives in `Base_Transformer`, inherited by both `Dim_Transformer` (slow-changing reference data) and `Fact_Transformer` (transactional events). A few of the most-used utilities:
 
 ```python
-def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_name"):
-    """Builds a composite key by concatenating values from multiple columns."""
-    missing_cols = [c for c in selected_cols if c not in df.columns]
-    if missing_cols:
-        self.logger.error(f"Columns {missing_cols} not found. Cannot create surrogate key.")
+class Base_Transformer:
+    def to_date(self, df, columns: list):
+        """Coerces text columns to datetime; invalid values become NaT instead of raising."""
+        for col in columns:
+            if col in df.columns:
+                df[col] = pd.to_datetime(df[col], errors='coerce')
         return df
 
-    combined_col = df[selected_cols[0]].astype(str)
-    for c in selected_cols[1:]:
-        combined_col = combined_col + "_" + df[c].astype(str)
+    def create_surrogate_key(self, df, cols: list, key_name: str):
+        """Builds a composite key by joining multiple columns, e.g. 'shopify_1042_TXN88'."""
+        key_series = df[cols[0]].astype(str)
+        for c in cols[1:]:
+            key_series += "_" + df[c].astype(str)
+        df[key_name] = key_series
+        return df
 
-    df[new_key_name] = combined_col
-    return df
+    def data_quality_check(self, df, table_name, key_columns=None, amount_columns=None):
+        """Flags duplicates (soft-delete via is_deleted=1) and detects amount outliers via IQR."""
+        df['is_deleted'] = 0
+        if key_columns:
+            is_dup = df.duplicated(subset=key_columns, keep='first')
+            df.loc[is_dup, 'is_deleted'] = 1
+        if amount_columns:
+            for col in amount_columns:
+                q1, q3 = df[col].quantile([0.25, 0.75])
+                iqr = q3 - q1
+                outliers = df[(df[col] < q1 - 1.5*iqr) | (df[col] > q3 + 1.5*iqr)]
+                self.logger.warning(f"'{col}' has {len(outliers)} outliers (IQR method)")
+        return df
 ```
 
-</details>
-
-**`unflatten_list()`** - expands nested product arrays inside orders into individual rows
-<details>
-<summary><b>📄 View code - <code>unflatten_list()</code></b></summary>
+**Dimension tables** (`Dim_Transformer`) are relatively lightweight — mostly column renaming and typing, since customer, product, and location data don't need reconciliation across sources:
 
 ```python
-def unflatten_list(self, df, list_col, col_to_keep):
-    """Explodes a column of lists (e.g. line_items) into separate rows."""
-    df_dict_version = df.to_dict(orient='records')
-    df_items = pd.json_normalize(
-        df_dict_version,
-        record_path=list_col,
-        meta=col_to_keep,
-        errors='ignore'
-    )
-    return df_items
-```
-
-</details>
-
-**`data_quality_check()`** - checks for nulls, flags duplicate rows with `is_deleted = 1`, validates date ranges, and detects amount outliers using IQR
-<details>
-<summary><b>📄 View code - <code>data_quality_check()</code></b></summary>
-
-```python
-def data_quality_check(self, df, table_name, critical_null_columns=None,
-                        key_columns=None, date_columns=None,
-                        amount_columns=None, allow_negative_amounts=False):
-    """
-    Logs null counts, flags duplicates (is_deleted = 1), validates date
-    ranges, and detects amount outliers using the IQR method.
-    """
-    null_counts = df.isnull().sum()
-    ...
-
-    df['is_deleted'] = 0
-    if key_columns:
-        valid_keys = [c for c in key_columns if c in df.columns]
-        is_dup = df.duplicated(subset=valid_keys, keep='first')
-        df.loc[is_dup, 'is_deleted'] = 1
-    ...
-
-    if amount_columns:
-        for col in amount_columns:
-            Q1, Q3 = df[col].quantile(0.25), df[col].quantile(0.75)
-            IQR = Q3 - Q1
-            outliers = df[col][(df[col] < Q1 - 1.5*IQR) | (df[col] > Q3 + 1.5*IQR)]
-            if len(outliers) > 0:
-                self.logger.warning(f"Column '{col}' has {len(outliers)} outliers (IQR method)")
-    return df
-```
-
-</details>
-
-**`handle_missing_value()`** - fills specific null columns with safe defaults (e.g. guest `customer_id` → `-1`) 
-<details>
-<summary><b>📄 View code - <code>handle_missing_value()</code></b></summary>
-
-```python
-def handle_missing_value(self, df, fill_cols: dict = {}):
-    """Fills specific null columns with safe defaults, e.g. {'customer_id': -1}."""
-    for col, value in fill_cols.items():
-        if col in df.columns:
-            missing_count = df[col].isnull().sum()
-            if missing_count > 0:
-                df[col] = df[col].fillna(value)
-                self.logger.info(f"Column {col} HAS FILLED {missing_count} values by '{value}'")
-    return df
-```
-
-</details>
-
-#### Dimension tables - built by `Dim_Transformer`
-
-- `dim_customer` - customer profile from Shopify; `customer_segment`, `first_order_date`, `last_order_date` start empty and get filled in later by the SQL step
-<details>
-<summary><b>📄 View code - <code>transform_dim_customer()</code></b></summary>
-
-```python
-def transform_dim_customer(self, df):  # From Shopify data
-    col_mapping = {
-        'id': 'customer_id', 'email': 'email', 'name': 'full_name',
-        'phone': 'phone', 'city': 'city', 'country': 'country',
-        'created_at': 'created_at', 'total_spent_vnd': 'lifetime_value_vnd',
-        'total_orders': 'total_orders'
-    }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    df_dim = df[selected_cols].copy()
-    df_dim.rename(columns=col_mapping, inplace=True)
-
-    df_dim = self.to_date(df_dim, ['created_at'])
-
-    # Placeholder columns, filled later by the RFM SQL step
-    df_dim['customer_segment'] = 'Default'
-    df_dim['first_order_date'] = pd.NaT
-    df_dim['last_order_date'] = pd.NaT
-    return df_dim
-```
-
-</details>
-
-- `dim_product` - product catalogue from Shopify; `is_active` flag added
-<details>
-<summary><b>📄 View code - <code>transform_dim_product()</code></b></summary>
-
-```python
-def transform_dim_product(self, df):  # From Shopify data
+def transform_dim_product(self, df):
     col_mapping = {
         'id': 'product_id', 'name': 'product_name', 'sku': 'sku',
-        'barcode': 'barcode', 'category': 'category', 'brand': 'brand',
-        'price_vnd': 'price_vnd', 'price_usd': 'price_usd',
-        'stock_quantity': 'stock_quantity'
+        'category': 'category', 'brand': 'brand', 'price_vnd': 'price_vnd'
     }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    df_dim = df[selected_cols].copy()
-    df_dim.rename(columns=col_mapping, inplace=True)
+    df_dim = df[[c for c in col_mapping if c in df.columns]].rename(columns=col_mapping)
     df_dim['is_active'] = 1
     return df_dim
 ```
 
-</details>
-- `dim_location` - store locations from Sapo POS; `location_type` set to `Offline Store`
-<details>
-<summary><b>📄 View code - <code>transform_dim_location()</code></b></summary>
-
-```python
-def transform_dim_location(self, df):  # From Sapo data (offline POS)
-    col_mapping = {
-        'id': 'location_id', 'code': 'location_code', 'name': 'location_name',
-        'city': 'city', 'address': 'address', 'phone': 'phone'
-    }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    df_dim = df[selected_cols].copy()
-    df_dim.rename(columns=col_mapping, inplace=True)
-
-    df_dim['location_type'] = 'Offline Store'
-    df_dim['is_active'] = 1
-    return df_dim
-```
-
-</details>
-
-#### Fact tables - built by `Fact_Transformer`
-
-- `fact_orders` - combines orders from Shopify, Online Orders, and Sapo POS. Each source is cleaned separately, then all three are stacked together using `pd.concat`
-- `fact_order_items` - explodes the `line_items` array inside each order into individual product rows, then stacks all channels together
-- `fact_payments` - standardises payment records from ZaloPay, MoMo, and PayPal. Each gateway uses a different success code - `return_code == 1` for ZaloPay, `resultCode == 0` for MoMo - both are mapped to `SUCCESS`/`FAILED`. **PayPal data was excluded from the final load due to very low data volume**, but the transformer is kept for future use.
-- `fact_cart_events` - maps raw user behaviour events (*add to cart, view item, etc.*) with UTM tracking fields
-- `fact_bank_transactions` - processes Mercury Bank records; negative amounts (outflows) are allowed and noted
-
-<details>
-<summary><b>📄 View code - <code>transform_fact_order()</code> (combines 3 channels)</b></summary>
+**Fact tables** (`Fact_Transformer`) are where the real reconciliation happens. `fact_orders`, for instance, is built from three independently-cleaned channel-specific transforms, then unified with `pd.concat` and cast to a single consistent schema:
 
 ```python
 def transform_fact_order(self, df_shopify, df_online, df_sapo):
-    f_shopify = self.fact_order_shopify(df_shopify)
-    f_online = self.fact_order_online(df_online)
-    f_sapo = self.fact_order_sapo(df_sapo)
-
-    fact_order = pd.concat([f_shopify, f_online, f_sapo], ignore_index=True)
-
-    standard_cols = [
-        'order_key', 'order_id', 'transaction_id', 'customer_id',
-        'order_date', 'order_date_key', 'channel', 'source',
-        'status', 'payment_status', 'total_vnd', 'total_usd'
+    channels = [
+        self.fact_order_shopify(df_shopify),
+        self.fact_order_online(df_online),
+        self.fact_order_sapo(df_sapo),
     ]
-    fact_order = fact_order[[c for c in standard_cols if c in fact_order.columns]]
+    fact_order = pd.concat(channels, ignore_index=True)
 
-    # Enforce dtypes to avoid BigQuery schema mismatches
+    # Enforce dtypes so BigQuery never rejects the load on schema mismatch
     fact_order['total_vnd'] = fact_order['total_vnd'].fillna(0).astype('int64')
     fact_order['order_date_key'] = fact_order['order_date_key'].fillna(19000101).astype('int32')
     return fact_order
 ```
 
-</details>
-
-<details>
-<summary><b>📄 View code - <code>fact_order_shopify()</code> (one of the 3 per-channel sub-transforms)</b></summary>
+Payment data illustrates another recurring challenge: each gateway defines "success" differently, so the transform layer normalizes them into one consistent `payment_status` field before the tables are ever combined:
 
 ```python
-def fact_order_shopify(self, df):
-    col_mapping = {
-        'id': 'order_id', 'transaction_id': 'transaction_id',
-        'customer_id': 'customer_id', 'order_date': 'order_date',
-        'source': 'source', 'payment_status': 'payment_status',
-        'total_vnd': 'total_vnd', 'total_usd': 'total_usd'
-    }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    fact_order_shopify = df[selected_cols].copy()
-    fact_order_shopify.rename(columns=col_mapping, inplace=True)
+# ZaloPay marks success with return_code == 1
+fact_payment_zalopay['payment_status'] = np.where(df['return_code'] == 1, 'SUCCESS', 'FAILED')
 
-    fact_order_shopify['status'] = None  # Shopify raw has no fulfillment status
-    fact_order_shopify = self.to_date(fact_order_shopify, ['order_date'])
-    fact_order_shopify = self.create_date_key(fact_order_shopify, 'order_date', 'order_date_key')
-
-    fact_order_shopify['channel'] = 'shopify'
-    fact_order_shopify = self.create_surrogate_key(
-        fact_order_shopify, ['channel', 'order_id', 'transaction_id'], 'order_key'
-    )
-    return fact_order_shopify
+# MoMo marks success with resultCode == 0 — a completely different convention
+fact_payment_momo['payment_status'] = np.where(df['resultCode'] == 0, 'SUCCESS', 'FAILED')
 ```
 
-</details>
+`fact_order_items` deserves a special mention: each order's `line_items` array is nested JSON, so it has to be exploded into individual product rows using `unflatten_list()`, a thin wrapper around `pd.json_normalize`, before it can be loaded as a relational table.
 
-<details>
-<summary><b>📄 View code - <code>fact_order_items_shopify()</code> (exploding <code>line_items</code>)</b></summary>
-
-```python
-def fact_order_items_shopify(self, df, original_source):
-    selected_cols = ['order_key', 'order_id', 'transaction_id', 'order_date_key']
-    order_items = df[selected_cols].copy().merge(original_source, how='inner', on=['transaction_id'])
-    order_items = order_items.rename(columns={'transaction_id': 'transaction_id_original'})
-
-    # Flatten nested line_items array into relational rows
-    exploded = self.unflatten_list(
-        order_items[['order_key', 'order_date_key', 'transaction_id_original', 'line_items']],
-        'line_items', ['order_key', 'order_date_key', 'transaction_id_original']
-    )
-
-    exploded = self.create_surrogate_key(exploded, ['order_key', 'product_id'], 'order_item_key')
-    exploded['line_total_vnd'] = exploded['quantity'] * exploded['price']
-    ...
-    return exploded
-```
-
-</details>
-
-<details>
-<summary><b>📄 View code - payment-gateway success-code mapping (<code>fact_payment_zalopay</code> / <code>fact_payment_momo</code>)</b></summary>
-
-```python
-# ZaloPay: return_code == 1 → SUCCESS
-fact_payment_zalopay['payment_status'] = np.where(
-    df['return_code'] == 1, 'SUCCESS', 'FAILED'
-)
-
-# MoMo: resultCode == 0 → SUCCESS
-fact_payment_momo['payment_status'] = np.where(
-    df['resultCode'] == 0, 'SUCCESS', 'FAILED'
-)
-```
-
-</details>
-
-<details>
-<summary><b>📄 View code - <code>transform_fact_cart_events()</code></b></summary>
-
-```python
-def transform_fact_cart_events(self, df):
-    col_mapping = {
-        'event_id': 'event_id', 'session_id': 'session_id', 'customer_id': 'customer_id',
-        'event_type': 'event_type', 'timestamp': 'event_timestamp', 'product_id': 'product_id',
-        'source': 'source', 'device': 'device', 'utm_source': 'utm_source',
-        'utm_campaign': 'utm_campaign'
-    }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    fact_cart_events = df[selected_cols].copy()
-    fact_cart_events.rename(columns=col_mapping, inplace=True)
-
-    fact_cart_events = self.to_date(fact_cart_events, ['event_timestamp'])
-    fact_cart_events = self.create_date_key(fact_cart_events, 'event_timestamp', 'event_date_key')
-    fact_cart_events = self.create_surrogate_key(fact_cart_events, ['event_type', 'event_id'], 'event_key')
-
-    fact_cart_events = self.handle_missing_value(fact_cart_events, {
-        'customer_id': '-1', 'product_id': '-1',
-        'utm_source': 'unidentified', 'utm_campaign': 'unidentified'
-    })
-    return fact_cart_events
-```
-
-</details>
-
-<details>
-<summary><b>📄 View code - <code>transform_fact_bank_transactions()</code></b></summary>
-
-```python
-def transform_fact_bank_transactions(self, df):
-    col_mapping = {
-        'transaction_id': 'transaction_id', 'accountId': 'account_id',
-        'kind': 'transaction_type', 'amount_vnd': 'amount_vnd', 'status': 'status',
-        'createdAt': 'transaction_date', 'source': 'source'
-    }
-    selected_cols = [c for c in col_mapping.keys() if c in df.columns]
-    fact_bank_transactions = df[selected_cols].copy()
-    fact_bank_transactions.rename(columns=col_mapping, inplace=True)
-
-    fact_bank_transactions = self.to_date(fact_bank_transactions, ['transaction_date'])
-    fact_bank_transactions = self.create_date_key(
-        fact_bank_transactions, 'transaction_date', 'transaction_date_key'
-    )
-    fact_bank_transactions = self.create_surrogate_key(
-        fact_bank_transactions, ['source', 'transaction_id'], 'transaction_key'
-    )
-    return fact_bank_transactions
-```
-
-</details>
+**How it connects to the pipeline.** Every transform function is called from `process_dimensions()` / `process_facts()` in the orchestrator, immediately after extraction and immediately before `data_quality_check()` and load — transformation is the bridge between "raw JSON" and "trustworthy warehouse table."
 
 ---
 
-### Step 3: Load - Writing to BigQuery
+### Step 3 — Load: Writing to BigQuery
 
-`Big_Query_Loader` handles all writes to BigQuery. It automatically picks the right partition type based on the column:
+**Purpose.** Get the cleaned DataFrames into BigQuery in a way that's both correct (right schema, right types) and performant (properly partitioned and clustered for the query patterns analysts will actually run).
 
-- Date/timestamp columns → partition by day
-- Integer date key columns (like `20240315`) → range partition
-
-Each table is also **clustered** to make queries faster (e.g. `fact_orders` clusters on `customer_id` and `channel` so filtering by customer or channel is cheap). All tables use `WRITE_TRUNCATE` - the pipeline does a full reload each run.
-
-<details>
-<summary><b>📄 View code - auto-detecting partition type in <code>load_dataframe()</code></b></summary>
+**How it's done.** A single `Big_Query_Loader` class handles every table in the warehouse. Rather than hardcoding partitioning logic per table, it inspects the target column's dtype and decides automatically between `TimePartitioning` (for real datetime columns) and `RangePartitioning` (for integer date keys like `20240315`):
 
 ```python
 def load_dataframe(self, df, dataset_id, bq_table_name,
                     write_disposition='WRITE_TRUNCATE',
                     partition_by=None, cluster_by=None):
-    destination_table = f"{self.client.project}.{dataset_id}.{bq_table_name}"
-    job_config = bigquery.LoadJobConfig(
-        write_disposition=getattr(bigquery.WriteDisposition, write_disposition)
-    )
 
-    if partition_by:
-        if partition_by in df.columns and pd.api.types.is_integer_dtype(df[partition_by]):
-            # Integer date key (e.g. 20240101) → RangePartitioning
-            job_config.range_partitioning = bigquery.RangePartitioning(
-                field=partition_by,
-                range_=bigquery.PartitionRange(start=19000101, end=21001231, interval=1)
-            )
-        else:
-            # DATE / TIMESTAMP field → TimePartitioning
-            job_config.time_partitioning = bigquery.TimePartitioning(
-                type_=bigquery.TimePartitioningType.DAY, field=partition_by
-            )
+    job_config = bigquery.LoadJobConfig(write_disposition=write_disposition)
+
+    if partition_by and pd.api.types.is_integer_dtype(df[partition_by]):
+        job_config.range_partitioning = bigquery.RangePartitioning(
+            field=partition_by,
+            range_=bigquery.PartitionRange(start=19000101, end=21001231, interval=1)
+        )
+    elif partition_by:
+        job_config.time_partitioning = bigquery.TimePartitioning(field=partition_by)
 
     if cluster_by:
         job_config.clustering_fields = cluster_by
 
-    job = self.client.load_table_from_dataframe(df, destination_table, job_config=job_config)
+    destination = f"{self.client.project}.{dataset_id}.{bq_table_name}"
+    job = self.client.load_table_from_dataframe(df, destination, job_config=job_config)
     job.result()
 ```
 
-</details>
-
-<details>
-<summary><b>📄 View code - example call from the orchestrator</b></summary>
+In practice, the orchestrator calls this once per table with query patterns in mind — `fact_orders` is clustered on `customer_id` and `channel` because those are the two filters analysts use most often:
 
 ```python
 self.loader.load_dataframe(
     df=fact_orders,
     dataset_id=self.dataset_id,
     bq_table_name='fact_orders',
-    write_disposition='WRITE_TRUNCATE',
     partition_by='order_date_key',
-    cluster_by=['customer_id', 'channel']
+    cluster_by=['customer_id', 'channel'],
 )
 ```
 
-</details>
+Every table currently loads with `WRITE_TRUNCATE` — a full reload each run — which keeps the loading logic simple while data volume is still manageable; this is the first thing that would move to an incremental/merge strategy as the pipeline scales.
+
+**How it connects to the pipeline.** Load is the final step inside both `process_dimensions()` and `process_facts()` — by the time `load_dataframe()` runs, the data has already passed through cleaning and quality checks, so this step is purely mechanical: get validated data into BigQuery safely.
 
 ---
 
-### Step 4: SQL Update - Customer Segments (RFM)
+### Step 4 — SQL Update: Customer RFM Segmentation
 
-After all tables are loaded, the pipeline runs a BigQuery `MERGE` statement that:
+**Purpose.** Marketing needs each customer's spending behavior classified into actionable segments (VIP, At Risk, Lost, etc.) — but this can only be calculated *after* `fact_orders` is fully loaded, since it depends on aggregating order history across all three sales channels at once. This step closes that loop entirely inside BigQuery, right after the load finishes.
 
-1. Pulls order history from `fact_orders` (paid + completed orders only) and calculates each customer's total spend, order count, first order date, and last order date
-2. Scores each customer on **Recency, Frequency, and Monetary** value using `NTILE(5)` - giving each axis a score from 1 to 5
-3. Combines the three scores into a 3-digit cell (e.g. `555`, `312`) and maps it to a segment name: *At Risk, Growing / Potential, Lost / Inactive, Needs Attention, No Purchase, and others*.
-4. Customers with no purchase history are labelled `No Purchase` - their `total_orders = 0` and `first/last_order_date` remain `null`
-5. Updates `dim_customer` in place - existing rows are overwritten with the new values
-
-<details>
-<summary><b>📄 View code - aggregating order history per customer</b></summary>
+**How it's done.** A single `MERGE` statement, run via `execute_query()`, recomputes and writes the segments back into `dim_customer` in one pass — no separate scoring script, no manual refresh.
 
 ```sql
-aggregate_value AS (
+WITH aggregate_value AS (
     SELECT
         customer_id,
         MIN(order_date) AS first_order_date,
@@ -640,108 +339,82 @@ aggregate_value AS (
     WHERE payment_status IN ('paid', 'partially_paid')
       AND status IN ('completed', 'shipping', 'delivered', 'fulfilled', 'pending')
     GROUP BY customer_id
-)
-```
+),
 
-</details>
-
-<details>
-<summary><b>📄 View code - RFM scoring with <code>NTILE(5)</code></b></summary>
-
-```sql
 rfm_score AS (
     SELECT
         customer_id,
-        last_order_date AS recency,
-        total_orders AS frequency,
-        life_time_value_vnd AS monetary,
         CONCAT(
-            CAST(NTILE(5) OVER (ORDER BY last_order_date) AS STRING),
-            CAST(NTILE(5) OVER (ORDER BY total_orders) AS STRING),
+            CAST(NTILE(5) OVER (ORDER BY last_order_date)     AS STRING),
+            CAST(NTILE(5) OVER (ORDER BY total_orders)        AS STRING),
             CAST(NTILE(5) OVER (ORDER BY life_time_value_vnd) AS STRING)
         ) AS rfm_cell
     FROM aggregate_value
+),
+
+rfm_segment AS (
+    SELECT
+        customer_id,
+        CASE
+            WHEN rfm_cell IN ('555','554','544','545', ...) THEN 'VIP / Best Customers'
+            WHEN rfm_cell IN ('331','321','312','221', ...) THEN 'At Risk'
+            WHEN rfm_cell IN ('155','154','144','214', ...) THEN 'Lost / Inactive'
+            ELSE 'Unknown'
+        END AS segment
+    FROM rfm_score
 )
+
+MERGE dim_customer AS target
+USING rfm_segment AS source
+ON target.customer_id = source.customer_id
+WHEN MATCHED THEN
+    UPDATE SET target.customer_segment = source.segment;
 ```
 
-</details>
+Customers who exist in `dim_customer` but have never placed a qualifying order are handled explicitly rather than silently dropped: a `LEFT JOIN` from `dim_customer` ensures they still appear in the result, defaulted to the `'No Purchase'` segment with `total_orders = 0`.
 
-<details>
-<summary><b>📄 View code - mapping RFM cell → segment name</b></summary>
-
-```sql
-CASE
-    WHEN rfm_cell IN ('555','554','544','545',...)   THEN 'VIP / Best Customers'
-    WHEN rfm_cell IN ('553','551','552','541',...)   THEN 'Growing / Potential'
-    WHEN rfm_cell IN ('535','534','443','434',...)   THEN 'Needs Attention'
-    WHEN rfm_cell IN ('331','321','312','221',...)   THEN 'At Risk'
-    WHEN rfm_cell IN ('155','154','144','214',...)   THEN 'Lost / Inactive'
-    ELSE 'Unknown'
-END AS segment
-```
-
-</details>
+**How it connects to the pipeline.** This step only runs *after* `process_facts()` completes, since it's the sole consumer of the freshly-loaded `fact_orders` table. It's the pipeline's one piece of "post-load business logic" — everything before it is pure ETL, this step is where raw transactions become an actual customer insight.
 
 ---
 
-### Step 5: Orchestration & Error Handling
+### Step 5 — Orchestration & Error Handling
 
-`Pipeline_Orchestrator` runs everything in the right order:
+**Purpose.** Tie every extractor, transformer, and loader together into one repeatable, observable, fault-tolerant run — and make sure that if one of eight data sources has a bad day, the other seven still make it into the warehouse.
 
-```
-check_dataset → process_dimensions() → process_facts() → execute_sql_query()
-```
-
-Each table has its own `try/except` block - if one source fails, the rest of the pipeline keeps running and logs the failure instead of crashing silently. Every step is logged to both the console and a log file via `setup_logger()`.
-
-<details>
-<summary><b>📄 View code - isolated try/except per table in <code>process_dimensions()</code></b></summary>
-
-```python
-def process_dimensions(self):
-    self.logger.info('--- Starting Process: DIMENSION TABLES ---')
-
-    try:
-        self.logger.info("Processing 'dim_customer'...")
-        extractor = Shopify_Extractor(self.bucket_name)
-        customer_data_raw = extractor.extract_file()
-
-        dim_customer = self.dim_transformer.transform_dim_customer(customer_data_raw)
-        self.dim_transformer.data_quality_check(df=dim_customer, table_name='dim_customer')
-
-        self.loader.load_dataframe(
-            df=dim_customer, dataset_id=self.dataset_id,
-            partition_by='created_at', bq_table_name='dim_customer'
-        )
-        self.logger.info("Finished 'dim_customer'.")
-
-    except Exception as e:
-        self.logger.critical(f'Fail when processing DIM_CUSTOMER: {e}')
-        raise e
-
-    # dim_product and dim_location follow the same pattern, each in its own try/except...
-```
-
-</details>
-
-<details>
-<summary><b>📄 View code - <code>orchestrator_run()</code>, the single entry point</b></summary>
+**How it's done.** `Pipeline_Orchestrator` exposes a single entry point, `orchestrator_run()`, that executes the pipeline stages in a strict order:
 
 ```python
 def orchestrator_run(self):
     self.logger.info(">>> PIPELINE STARTED <<<")
     try:
         self.loader.check_dataset_available(self.dataset_id)
-        self.process_dimensions()
-        self.process_facts()
-        self.execute_sql_query()
+        self.process_dimensions()   # dim_customer, dim_product, dim_location
+        self.process_facts()        # fact_orders, fact_order_items, fact_payments, ...
+        self.execute_sql_query()    # RFM segmentation MERGE
         self.logger.info(">>> PIPELINE FINISHED SUCCESSFULLY <<<")
     except Exception as e:
         self.logger.critical(f">>> PIPELINE FAILED: {e} <<<")
         raise e
 ```
 
-</details>
+Crucially, error handling isn't just wrapped around the whole run — it's applied **per table**, inside `process_dimensions()` and `process_facts()`. A malformed file in `cart_tracking/` should never prevent `dim_customer` from loading:
+
+```python
+try:
+    self.logger.info("Processing 'dim_customer'...")
+    raw = Shopify_Extractor(self.bucket_name).extract_file()
+    dim_customer = self.dim_transformer.transform_dim_customer(raw)
+    self.dim_transformer.data_quality_check(df=dim_customer, table_name='dim_customer')
+    self.loader.load_dataframe(df=dim_customer, dataset_id=self.dataset_id,
+                                partition_by='created_at', bq_table_name='dim_customer')
+except Exception as e:
+    self.logger.critical(f"Fail when processing DIM_CUSTOMER: {e}")
+    raise e  # logged and re-raised, but does not block the next table's try/except
+```
+
+Every step — success or failure — is logged simultaneously to the console and to `logs/pipeline.log` via a shared `setup_logger()` utility, giving a full audit trail of each run without needing to attach a debugger after the fact.
+
+**How it connects to the pipeline.** This is the layer that turns four independent modules (extract, transform, load, SQL) into an actual product: a single command, `python main.py`, that runs the entire 8-source pipeline end-to-end, self-reports its own health, and degrades gracefully instead of failing all-or-nothing.
 
 ---
 

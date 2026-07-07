@@ -645,7 +645,10 @@ LEFT JOIN bank b ON d.date_key = b.date_key
 LEFT JOIN `unigappython.techstore_analytics.dim_date` dd ON d.date_key = dd.date_key
 ORDER BY d.date_key;
 ```
+The view unions three independent aggregates (`sales`, `payments`, `bank`), one row per `date_key`, then left-joins them all together so a day with sales but no bank activity yet still shows up with zeros instead of disappearing from the report.
+ 
 </details>
+
 
 ### `vw_customer_journey` - Touchpoint Sequence Per Customer
 

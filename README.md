@@ -189,7 +189,7 @@ def payment_mercury_extract(self):
 All common transformation logic lives in `Base_Transformer`, which both `Dim_Transformer` and `Fact_Transformer` inherit from:
 
 <details>
-<summary><b>-<code>to_date()<code>- turns text date columns into proper datetime format; bad values become null instead of errors</b></summary>
+<summary><code>to_date()<code>- turns text date columns into proper datetime format; bad values become null instead of errors</summary>
 
 ```python
 def to_date(self, df, columns: list):

@@ -579,11 +579,98 @@ The screenshots below show real query results from BigQuery after the pipeline h
 
 `vw_cashflow_daily` brings together sales, payments, and bank records into one row per day. Finance can check whether revenue was actually collected without joining tables manually.
 
+
+
 ### `vw_customer_journey` - Touchpoint Sequence Per Customer
 
 ![vw_customer_journey](Images/vw_customer_journey.png)
 
 `vw_customer_journey` shows each customer's path from first site interaction to purchase - including the full event sequence (e.g. `view_item > add_to_cart > purchase`) and how many hours it took.
+
+<details>
+<summary><b>📄 View Query</summary>
+  
+```sql
+CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_customer_journey` AS
+WITH events_unioned AS (
+  SELECT
+    customer_id,
+    session_id,
+    event_type,
+    event_timestamp,
+    product_id,
+    source,
+    device,
+    utm_source,
+    utm_campaign,
+    NULL AS order_id,
+    NULL AS order_total_vnd
+  FROM `unigappython.techstore_analytics.fact_cart_events`
+  WHERE customer_id IS NOT NULL
+    AND customer_id != -1
+ 
+  UNION ALL
+ 
+  SELECT
+    customer_id,
+    NULL AS session_id,
+    'purchase' AS event_type,
+    order_date AS event_timestamp,
+    NULL AS product_id,
+    source,
+    NULL AS device,
+    NULL AS utm_source,
+    NULL AS utm_campaign,
+    order_id,
+    total_vnd AS order_total_vnd
+  FROM `unigappython.techstore_analytics.fact_orders`
+  WHERE customer_id IS NOT NULL
+    AND customer_id != -1
+    AND order_date IS NOT NULL
+),
+ 
+ranked AS (
+  SELECT
+    *,
+    ROW_NUMBER() OVER (
+      PARTITION BY customer_id
+      ORDER BY event_timestamp ASC
+    ) AS touchpoint_seq,
+    MIN(event_timestamp) OVER (PARTITION BY customer_id) AS first_touchpoint_at,
+    MAX(IF(event_type = 'purchase', event_timestamp, NULL))
+      OVER (PARTITION BY customer_id) AS first_purchase_at
+  FROM events_unioned
+)
+ 
+SELECT
+  customer_id,
+  touchpoint_seq,
+  event_type,
+  event_timestamp,
+  session_id,
+  product_id,
+  source,
+  device,
+  utm_source,
+  utm_campaign,
+  order_id,
+  order_total_vnd,
+  first_touchpoint_at,
+  first_purchase_at,
+  TIMESTAMP_DIFF(first_purchase_at, first_touchpoint_at, HOUR) AS hours_to_first_purchase,
+  STRING_AGG(event_type, ' > ')
+    OVER (
+      PARTITION BY customer_id
+      ORDER BY event_timestamp ASC
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS touchpoint_sequence
+FROM ranked
+ORDER BY customer_id, touchpoint_seq;
+```
+ 
+ 
+</details>
+
 
 ### `vw_payment_status` - Payment Health Per Order
 

@@ -22,12 +22,12 @@ _End-to-end Python ETL pipeline that ingests, cleans, and standardizes multi-cha
 ## 📑 Table of Contents
 
 1. [📌 Background & Overview](#-background--overview)
-2. [🔌 Data Sources & Inputs](#-data-sources--inputs)
+2. [🔌 Data Sources & Input](#-data-sources--input)
 3. [🏛 Architecture & Design](#-architecture--design)
-4. [⚒ Main Process](#-main-process)
-5. [🗄 Data Model (Star Schema)](#-data-model-star-schema)
-6. [📊 BigQuery Output](#-bigquery-output)
-7. [📈 Power BI](#-power-bi)
+4. [⚒ ETL Pipeline Walkthrough](#-etl-pipeline-walkthrough)
+5. [🌐 Data Warehouse Schema](#-data-warehouse-schema)
+6. [🗄 Warehouse Output](#-warehouse-output)
+7. [📈 Power BI Integration](#-power-bi-integration)
 8. [🔎 Conclusion & Business Impact](#-conclusion--business-impact)
 9. [🗂 Project Structure](#-project-structure)
 10. [⚙ Setup Instructions](#-setup-instructions)
@@ -121,7 +121,7 @@ Each source has its own data format. Below are example:
 
 ---
 
-## ⚒ Main Process
+## ⚒ ETL Pipeline Walkthrough
 
 This pipeline follows a straightforward Extract, Transform, Load pattern, with two extra pieces added on top: a SQL step that recalculates customer segments right after loading finishes, and an orchestration layer that runs everything in order and keeps one broken data source from taking down the entire run.
 
@@ -596,7 +596,7 @@ This is really the layer that turns four separate modules into an actual working
 
 ---
 
-## 🗄 Data Model (Star Schema)
+## 🌐 Data Warehouse Schema
 
 ![Star Schema Data Model](Images/Star_Schema_Data_Model.png)
 
@@ -639,7 +639,7 @@ Three views sit on top of the fact tables and are ready to query directly from P
 
 ---
 
-## 📊 BigQuery Output
+## 🗄 Warehouse Output
 
 The screenshots below show real query results from BigQuery after the pipeline has run.
 
@@ -889,7 +889,7 @@ Every order is classified into one of six payment health categories (`Paid`, `Pe
 
 ---
 
-## 📈 Power BI
+## 📈 Power BI Integration
 
 The three analytical views (`vw_customer_journey`, `vw_cashflow_daily`, `vw_payment_status`) are connected to Power BI via the native BigQuery connector for future business reporting.
 

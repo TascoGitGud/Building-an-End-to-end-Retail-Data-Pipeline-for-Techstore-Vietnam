@@ -22,7 +22,7 @@ _End-to-end Python ETL pipeline that ingests, cleans, and standardizes multi-cha
 ## 📑 Table of Contents
 
 1. [📌 Background & Overview](#-background--overview)
-2. [📂 Data Sources](#-data-sources)
+2. [🔌 Data Sources & Inputs](#-data-sources--inputs)
 3. [🏛 Architecture & Design](#-architecture--design)
 4. [⚒ Main Process](#-main-process)
 5. [🗄 Data Model (Star Schema)](#-data-model-star-schema)
@@ -66,7 +66,7 @@ This project builds a **Python ETL pipeline** that pulls data from all sources, 
 
 ---
 
-## 📂 Data Sources
+## 🔌 Data Sources & Input
 
 All raw data is stored in **Google Cloud Storage (GCS)** as `.json.gz` files, one folder per source. The pipeline reads from GCS directly - no extra staging step needed.
 

@@ -538,7 +538,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 ### 2️⃣ Fact Tables
 
 | Table | Sources | Partition | Primary Key | What It Records |
-|---|---|---|---|---|---|
+|---|---|---|---|---|
 | `fact_orders` | `Shopify` · `Online Orders` · `Sapo POS` | `order_date_key` | `order_key` | Every order across all channels. |
 | `fact_order_items` | `Shopify` · `Online Orders` · `Sapo POS` | `order_date_key`  | `order_item_key` | Each product line inside an order. |
 | `fact_payments` | `ZaloPay` · `MoMo` · `PayPal` | `payment_date_key` | `payment_key` | Payment transactions from e-wallet gateways. |

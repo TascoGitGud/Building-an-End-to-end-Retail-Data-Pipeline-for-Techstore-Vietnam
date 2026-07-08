@@ -604,7 +604,7 @@ This is really the layer that turns four separate modules into an actual working
 
 Dimension tables describe the "who", "what", "where", and "when". Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.
 
-### 🧩 Dimension Tables
+### Dimension Tables
 
 | Table | Source | Partition | Primary Key | What It Records |
 |---|---|---|---|---|
@@ -615,7 +615,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 
 > `dim_staff` was part of the original scope but **not built** - Sapo POS raw data does not include staff information.
 
-### 🧾 Fact Tables
+### Fact Tables
 
 | Table | Sources | Partition | Primary Key | What It Records |
 |---|---|---|---|---|
@@ -625,7 +625,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 | `fact_cart_events` | `Cart Tracking` | `event_date_key` | `event_key` | User actions on site. |
 | `fact_bank_transactions` | `Mercury Bank` | `transaction_date_key` | `transaction_key` | Bank-level inflows and outflows. |
 
-### 🔍 Analytical Views
+### Analytical Views
 
 Three views sit on top of the fact tables and are ready to query directly from Power BI:
 

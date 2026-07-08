@@ -604,7 +604,7 @@ This is really the layer that turns four separate modules into an actual working
 
 Dimension tables describe the "who", "what", "where", and "when". Fact tables record what actually happened (orders, payments, events) and link back to dimensions via foreign keys.
 
-### 1️⃣ Dimension Tables
+### 🧩 Dimension Tables
 
 | Table | Source | Partition | Primary Key | What It Records |
 |---|---|---|---|---|
@@ -615,7 +615,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 
 > `dim_staff` was part of the original scope but **not built** - Sapo POS raw data does not include staff information.
 
-### 2️⃣ Fact Tables
+### 🧾 Fact Tables
 
 | Table | Sources | Partition | Primary Key | What It Records |
 |---|---|---|---|---|
@@ -625,7 +625,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 | `fact_cart_events` | `Cart Tracking` | `event_date_key` | `event_key` | User actions on site. |
 | `fact_bank_transactions` | `Mercury Bank` | `transaction_date_key` | `transaction_key` | Bank-level inflows and outflows. |
 
-### 3️⃣ Analytical Views
+### 🔍 Analytical Views
 
 Three views sit on top of the fact tables and are ready to query directly from Power BI:
 
@@ -658,7 +658,7 @@ The screenshots below show real query results from BigQuery after the pipeline h
 `vw_cashflow_daily` brings together sales, payments, and bank records into one row per day. Finance can check whether revenue was actually collected without joining tables manually.
 
 <details>
-<summary><b>📄 BigQuery View</b>: vw_cashflow_daily definition</summary>
+<summary><b>📄 BigQuery View</b>: vw_cashflow_daily</summary>
 
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_cashflow_daily` AS
@@ -735,7 +735,7 @@ The view unions three independent aggregates (`sales`, `payments`, `bank`), one 
 `vw_customer_journey` shows each customer's path from first site interaction to purchase, including the full event sequence (e.g. `view_item > add_to_cart > purchase`) and how many hours it took.
 
 <details>
-<summary><b>📄 BigQuery View</b>: vw_customer_journey definition</summary>
+<summary><b>📄 BigQuery View</b>: vw_customer_journey</summary>
 
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_customer_journey` AS
@@ -826,7 +826,7 @@ Browsing events from `fact_cart_events` and purchases from `fact_orders` are uni
 `vw_payment_status` joins orders and payments to classify every order's payment health and flag overdue or partially paid orders.
 
 <details>
-<summary><b>📄 BigQuery View</b>: vw_payment_status definition</summary>
+<summary><b>📄 BigQuery View</b>: vw_payment_status</summary>
 
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_payment_status` AS

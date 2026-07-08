@@ -526,7 +526,7 @@ Dimension tables describe the "who", "what", "where", and "when". Fact tables re
 
 ### 1️⃣ Dimension Tables
 
-| Table | Source | Partition | Primary Key | What It Contains |
+| Table | Source | Partition | Primary Key | What It Records |
 |---|---|---|---|---|
 | `dim_customer` | `Shopify` | `created_at` | `customer_id` | Customer profile + RFM segment, lifetime value, etc.. Updated automatically after each pipeline run. |
 | `dim_product` | `Shopify` | - | `product_id` | Product name, SKU, category, etc. |

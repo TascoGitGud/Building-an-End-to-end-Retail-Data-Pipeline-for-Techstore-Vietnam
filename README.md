@@ -131,9 +131,6 @@ Every table in this project starts as a `.json.gz` file sitting in a GCS bucket,
 
 All extractors inherit from a single `Base_Extractor` class that handles the GCS connection, file listing, and unzipping logic. Each specific extractor only needs to know where its own files live.
 
-<details>
-<summary>View code - Base_Extractor</summary>
-  
 ```python
 class Base_Extractor:
     def __init__(self, bucket_name: str):
@@ -166,8 +163,6 @@ class Base_Extractor:
             self.logger.error(f"Error listing files in folder '{folder_name}': {e}")
             raise e
 ```
-
-<details>
 
 A specific extractor, like `Shopify_Extractor`, only adds its own folder path and a bit of logic to handle whether each file contains a list of records or a single record:
 

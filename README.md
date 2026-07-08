@@ -647,7 +647,9 @@ The screenshots below show real query results from BigQuery after the pipeline h
 
 ![dim_customer](Images/Dim_customer.png)
 
-`dim_customer` is updated after every pipeline run via the BigQuery MERGE. The table shows each customer's recalculated `lifetime_value_vnd`, `total_orders`, `last_order_date`, and their current RFM segment - including `No Purchase` for customers with no order history (`total_orders = 0` and `first_order_date` / `last_order_date` left as `null`).
+`dim_customer` is updated after every pipeline run via the BigQuery MERGE. The table shows each customer's recalculated `lifetime_value_vnd`, `total_orders`, `last_order_date`, and their current RFM segment, including `No Purchase` for customers with no order history (`total_orders = 0` and `first_order_date` / `last_order_date` left as `null`).
+
+> The full `MERGE` statement behind this table is shown in [Main Process, Step 4️⃣ SQL Update](#4️⃣-sql-update---customer-rfm-segmentation).
 
 ### `vw_cashflow_daily` - Daily Revenue and Cashflow
 
@@ -656,8 +658,8 @@ The screenshots below show real query results from BigQuery after the pipeline h
 `vw_cashflow_daily` brings together sales, payments, and bank records into one row per day. Finance can check whether revenue was actually collected without joining tables manually.
 
 <details>
-<summary><b>📄 View Query</b></summary>
-  
+<summary><b>📄 BigQuery View</b>: vw_cashflow_daily definition</summary>
+
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_cashflow_daily` AS
 WITH sales AS (
@@ -669,7 +671,7 @@ WITH sales AS (
   WHERE status NOT IN ('cancelled', 'refunded')
   GROUP BY order_date_key
 ),
- 
+
 payments AS (
   SELECT
     payment_date_key AS date_key,
@@ -679,7 +681,7 @@ payments AS (
   FROM `unigappython.techstore_analytics.fact_payments`
   GROUP BY payment_date_key
 ),
- 
+
 bank AS (
   SELECT
     transaction_date_key AS date_key,
@@ -688,7 +690,7 @@ bank AS (
   FROM `unigappython.techstore_analytics.fact_bank_transactions`
   GROUP BY transaction_date_key
 ),
- 
+
 all_dates AS (
   SELECT date_key FROM sales
   UNION DISTINCT
@@ -696,7 +698,7 @@ all_dates AS (
   UNION DISTINCT
   SELECT date_key FROM bank
 )
- 
+
 SELECT
   d.date_key,
   dd.year,
@@ -721,20 +723,20 @@ LEFT JOIN bank b ON d.date_key = b.date_key
 LEFT JOIN `unigappython.techstore_analytics.dim_date` dd ON d.date_key = dd.date_key
 ORDER BY d.date_key;
 ```
-The view unions three independent aggregates (`sales`, `payments`, `bank`), one row per `date_key`, then left-joins them all together so a day with sales but no bank activity yet still shows up with zeros instead of disappearing from the report.
- 
-</details>
 
+The view unions three independent aggregates (`sales`, `payments`, `bank`), one row per `date_key`, then left-joins them all together so a day with sales but no bank activity yet still shows up with zeros instead of disappearing from the report.
+
+</details>
 
 ### `vw_customer_journey` - Touchpoint Sequence Per Customer
 
 ![vw_customer_journey](Images/vw_customer_journey.png)
 
-`vw_customer_journey` shows each customer's path from first site interaction to purchase - including the full event sequence (e.g. `view_item > add_to_cart > purchase`) and how many hours it took.
+`vw_customer_journey` shows each customer's path from first site interaction to purchase, including the full event sequence (e.g. `view_item > add_to_cart > purchase`) and how many hours it took.
 
 <details>
-<summary><b>📄 View Query</summary>
-  
+<summary><b>📄 BigQuery View</b>: vw_customer_journey definition</summary>
+
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_customer_journey` AS
 WITH events_unioned AS (
@@ -753,9 +755,9 @@ WITH events_unioned AS (
   FROM `unigappython.techstore_analytics.fact_cart_events`
   WHERE customer_id IS NOT NULL
     AND customer_id != -1
- 
+
   UNION ALL
- 
+
   SELECT
     customer_id,
     NULL AS session_id,
@@ -773,7 +775,7 @@ WITH events_unioned AS (
     AND customer_id != -1
     AND order_date IS NOT NULL
 ),
- 
+
 ranked AS (
   SELECT
     *,
@@ -786,7 +788,7 @@ ranked AS (
       OVER (PARTITION BY customer_id) AS first_purchase_at
   FROM events_unioned
 )
- 
+
 SELECT
   customer_id,
   touchpoint_seq,
@@ -812,6 +814,7 @@ SELECT
 FROM ranked
 ORDER BY customer_id, touchpoint_seq;
 ```
+
 Browsing events from `fact_cart_events` and purchases from `fact_orders` are unioned into a single timeline per customer, then `STRING_AGG` builds a running, human-readable sequence like `view_item > add_to_cart > purchase` for every touchpoint along the way.
 
 </details>
@@ -821,9 +824,10 @@ Browsing events from `fact_cart_events` and purchases from `fact_orders` are uni
 ![vw_payment_status](Images/vw_payment_status.png)
 
 `vw_payment_status` joins orders and payments to classify every order's payment health and flag overdue or partially paid orders.
+
 <details>
-<summary><b>📄 View Query</b></summary>
-  
+<summary><b>📄 BigQuery View</b>: vw_payment_status definition</summary>
+
 ```sql
 CREATE OR REPLACE VIEW `unigappython.techstore_analytics.vw_payment_status` AS
 WITH payment_agg AS (
@@ -837,7 +841,7 @@ WITH payment_agg AS (
   FROM `unigappython.techstore_analytics.fact_payments`
   GROUP BY order_id
 )
- 
+
 SELECT
   o.order_key,
   o.order_id,
@@ -855,7 +859,7 @@ SELECT
   p.last_payment_gateway,
   p.last_payment_method,
   TIMESTAMP_DIFF(p.first_success_payment_date, o.order_date, HOUR) AS payment_delay_hours,
- 
+
   CASE
     WHEN IFNULL(p.total_paid_vnd, 0) >= o.total_vnd
       THEN 'Paid'
@@ -872,7 +876,7 @@ SELECT
       THEN 'Cancelled'
     ELSE 'Unknown'
   END AS payment_status_category
- 
+
 FROM `unigappython.techstore_analytics.fact_orders` o
 LEFT JOIN payment_agg p
   ON o.order_id = p.order_id

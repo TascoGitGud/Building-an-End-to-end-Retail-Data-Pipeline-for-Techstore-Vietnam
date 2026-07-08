@@ -131,6 +131,9 @@ Every table in this project starts as a `.json.gz` file sitting in a GCS bucket,
 
 All extractors inherit from a single `Base_Extractor` class that handles the GCS connection, file listing, and unzipping logic. Each specific extractor only needs to know where its own files live.
 
+<details>
+<summary><b>📄 extractors/base_extractor.py</b>: Base_Extractor class</summary>
+
 ```python
 class Base_Extractor:
     def __init__(self, bucket_name: str):
@@ -164,7 +167,12 @@ class Base_Extractor:
             raise e
 ```
 
+</details>
+
 A specific extractor, like `Shopify_Extractor`, only adds its own folder path and a bit of logic to handle whether each file contains a list of records or a single record:
+
+<details>
+<summary><b>📄 extractors/shopify_extractor.py</b>: Shopify_Extractor class</summary>
 
 ```python
 class Shopify_Extractor(Base_Extractor):
@@ -180,9 +188,14 @@ class Shopify_Extractor(Base_Extractor):
         return pd.DataFrame(data_extract)
 ```
 
+</details>
+
 `Sapo_Extractor`, `Online_Extractor`, and `Tracking_Extractor` are all built the exact same way. Only the folder path changes.
 
 Payment data works a little differently. `Payment_Extractor` handles all four gateways from a single class, and Mercury Bank is the one source that comes back as two related tables instead of one, since bank data only really makes sense when accounts and transactions are looked at together:
+
+<details>
+<summary><b>📄 extractors/payment_extractor.py</b>: Payment_Extractor.payment_mercury_extract()</summary>
 
 ```python
 def payment_mercury_extract(self):
@@ -195,6 +208,8 @@ def payment_mercury_extract(self):
         data_extract[clean_key] = df
     return data_extract  # {'accounts': df, 'transactions': df}
 ```
+
+</details>
 
 Once a file is extracted, the raw DataFrame goes straight into the matching transformer. There is no staging table in between.
 
@@ -221,6 +236,9 @@ Both `Dim_Transformer` and `Fact_Transformer` inherit from `Base_Transformer`, w
 
 Two representative examples of how these are written:
 
+<details>
+<summary><b>📄 transformers/base_transformer.py</b>: to_date()</summary>
+
 ```python
 def to_date(self, df, columns: list):
     """Turns text columns into real dates. Bad values become NaT instead of throwing an error."""
@@ -231,6 +249,11 @@ def to_date(self, df, columns: list):
             self.logger.warning(f"Column '{i}' not found in DataFrame.")
     return df
 ```
+
+</details>
+
+<details>
+<summary><b>📄 transformers/base_transformer.py</b>: create_surrogate_key()</summary>
 
 ```python
 def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_name"):
@@ -247,6 +270,8 @@ def create_surrogate_key(self, df, selected_cols: list, new_key_name="new_key_na
     return df
 ```
 
+</details>
+
 #### Dimension tables, built by Dim_Transformer
 
 Dimension tables are fairly light, mostly renaming columns and fixing data types, since customer, product, and location data do not need to be reconciled across multiple sources:
@@ -254,6 +279,9 @@ Dimension tables are fairly light, mostly renaming columns and fixing data types
 - `dim_customer`, from Shopify. `customer_segment`, `first_order_date`, and `last_order_date` start out empty and get filled in later by the SQL step.
 - `dim_product`, from Shopify. Adds an `is_active` flag.
 - `dim_location`, from Sapo POS. Adds `location_type = 'Offline Store'`.
+
+<details>
+<summary><b>📄 transformers/dimension_transformer.py</b>: transform_dim_product()</summary>
 
 ```python
 def transform_dim_product(self, df):  # from Shopify data
@@ -270,6 +298,8 @@ def transform_dim_product(self, df):  # from Shopify data
     return df_dim
 ```
 
+</details>
+
 #### Fact tables, built by Fact_Transformer
 
 This is where things get more interesting:
@@ -279,6 +309,9 @@ This is where things get more interesting:
 - `fact_payments`, standardising ZaloPay, MoMo, and PayPal. Each gateway defines success differently, so all of them get mapped to the same `SUCCESS` / `FAILED` values. PayPal was left out of the final load because of very low data volume, but the transformer is kept for future use.
 - `fact_cart_events`, mapping raw browsing behaviour (add to cart, view item, and so on) along with UTM tracking fields.
 - `fact_bank_transactions`, processing Mercury Bank records. Negative amounts (money going out) are allowed here and clearly noted.
+
+<details>
+<summary><b>📄 transformers/fact_transformer.py</b>: transform_fact_order()</summary>
 
 ```python
 def transform_fact_order(self, df_shopify, df_online, df_sapo):
@@ -301,7 +334,12 @@ def transform_fact_order(self, df_shopify, df_online, df_sapo):
     return fact_order
 ```
 
+</details>
+
 And the payment gateway normalisation mentioned above, in code:
+
+<details>
+<summary><b>📄 transformers/fact_transformer.py</b>: payment status mapping (ZaloPay / MoMo)</summary>
 
 ```python
 # ZaloPay marks success with return_code == 1
@@ -310,6 +348,8 @@ fact_payment_zalopay['payment_status'] = np.where(df['return_code'] == 1, 'SUCCE
 # MoMo uses resultCode == 0, a completely different convention
 fact_payment_momo['payment_status'] = np.where(df['resultCode'] == 0, 'SUCCESS', 'FAILED')
 ```
+
+</details>
 
 Every transform function here gets called right after extraction and right before the quality check and the load. This step is really the bridge between raw JSON and a table people can actually trust.
 
@@ -320,6 +360,9 @@ Every transform function here gets called right after extraction and right befor
 Once a table is clean, the goal here is simple: get it into BigQuery with the right schema, set up so queries against it run fast, not just correctly.
 
 A single `Big_Query_Loader` class handles every table in the warehouse. Instead of hardcoding partitioning per table, it looks at the target column's data type and decides on its own whether to use time based partitioning (for real datetime columns) or range partitioning (for integer date keys like `20240315`):
+
+<details>
+<summary><b>📄 loaders/bigquery_loader.py</b>: load_dataframe(), auto partition detection</summary>
 
 ```python
 def load_dataframe(self, df, dataset_id, bq_table_name,
@@ -352,7 +395,12 @@ def load_dataframe(self, df, dataset_id, bq_table_name,
     job.result()
 ```
 
+</details>
+
 And how the orchestrator actually calls it for `fact_orders`:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: example load_dataframe() call</summary>
 
 ```python
 self.loader.load_dataframe(
@@ -365,6 +413,8 @@ self.loader.load_dataframe(
 )
 ```
 
+</details>
+
 `fact_orders` is clustered on `customer_id` and `channel` because those are the two fields analysts filter on the most. Every table currently loads with `WRITE_TRUNCATE`, meaning a full reload on every run. This keeps things simple while data volume is still manageable, and it would be the first thing to move to an incremental load as the pipeline grows.
 
 By the time a table reaches this step, it has already passed through cleaning and the quality check, so loading itself stays purely mechanical: take data that has already been validated and get it into BigQuery safely.
@@ -376,6 +426,9 @@ By the time a table reaches this step, it has already passed through cleaning an
 Marketing needs each customer classified into a segment based on how they actually spend, and that can only be calculated once `fact_orders` is fully loaded, since it depends on looking at order history across all three sales channels at once. This step closes that loop directly inside BigQuery, right after the load finishes, using a single `MERGE` statement run through `execute_query()`.
 
 First, order history is aggregated per customer:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: execute_sql_query(), aggregate_value CTE</summary>
 
 ```sql
 WITH aggregate_value AS (
@@ -392,7 +445,12 @@ WITH aggregate_value AS (
 )
 ```
 
+</details>
+
 Then each customer gets a Recency, Frequency, and Monetary score from 1 to 5 using `NTILE(5)`, combined into a 3-digit RFM cell such as `555` or `312`:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: execute_sql_query(), rfm_score CTE</summary>
 
 ```sql
 rfm_score AS (
@@ -413,7 +471,12 @@ rfm_score AS (
 )
 ```
 
+</details>
+
 That RFM cell is then mapped into one of six segments:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: execute_sql_query(), rfm_segment CTE</summary>
 
 ```sql
 rfm_segment AS (
@@ -437,9 +500,14 @@ rfm_segment AS (
 )
 ```
 
+</details>
+
 Notice this CTE joins back to `aggregate_value`, that's on purpose: `rfm_score` only carries `customer_id` and the RFM cell, so the actual dates and totals need to be pulled back in before the final merge. Each `rfm_cell` list above is shortened for readability, the real query spells out every 3-digit combination that falls into that segment.
 
 Finally, everything is merged back into `dim_customer`. Customers with no purchase history at all are not dropped, a `LEFT JOIN` from `dim_customer` keeps them in the result and labels them `No Purchase`:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: execute_sql_query(), final MERGE into dim_customer</summary>
 
 ```sql
 MERGE dim_customer AS target
@@ -464,6 +532,8 @@ UPDATE SET
     target.customer_segment    = source.segment;
 ```
 
+</details>
+
 This step only runs once `process_facts()` finishes, since it is the one part of the pipeline that depends on `fact_orders` already being loaded. Everything before it is pure ETL. This is the one place where raw transactions turn into something Marketing can actually act on.
 
 ---
@@ -473,6 +543,9 @@ This step only runs once `process_facts()` finishes, since it is the one part of
 The final piece ties every extractor, transformer, and loader together into one run, and makes sure that if one of the eight sources has a bad day, the other seven still make it into the warehouse.
 
 `Pipeline_Orchestrator` exposes a single entry point, `orchestrator_run()`, that runs everything in order:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: orchestrator_run(), the single entry point</summary>
 
 ```python
 def orchestrator_run(self):
@@ -488,7 +561,12 @@ def orchestrator_run(self):
         raise e
 ```
 
+</details>
+
 What matters even more than this outer wrapper is that error handling is also applied at the table level, inside `process_dimensions()` and `process_facts()`. A broken file in `cart_tracking/` should never be able to stop `dim_customer` from loading:
+
+<details>
+<summary><b>📄 orchestration/pipeline_orchestrator.py</b>: process_dimensions(), isolated try/except per table</summary>
 
 ```python
 try:
@@ -509,6 +587,8 @@ except Exception as e:
     self.logger.critical(f'Fail when processing DIM_CUSTOMER: {e}')
     raise e  # logged clearly, but does not stop the next table's own try/except
 ```
+
+</details>
 
 `dim_product` and `dim_location` follow this exact same pattern, each wrapped in its own try/except block. Every step, whether it succeeds or fails, gets logged to both the console and a log file through a shared `setup_logger()` utility, so there is always a clear record of what happened during a run.
 
